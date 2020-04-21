@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts,epsfig}
+\usepackage[hyphens]{url}
+\RequirePackage{color}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{extarrows}
+\usepackage{enumerate}% http://ctan.org/pkg/enumerate
+\usepackage{tabularx}
+\usepackage{pifont} 
+ \usepackage{tikz}
+\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary[calc]
+\usetikzlibrary{bayesnet}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	citecolor=black,
+	filecolor=black,
+	urlcolor=black,
+}
+
+ 
+\usepackage{breakurl}
+\usepackage{comment}
+\graphicspath{{fig/}}
+\linespread{1.02}
+\usepackage{wrapfig}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\usepackage[linesnumbered,boxed]{algorithm2e}
+
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\let\oldv\verbatim
+\let\oldendv\endverbatim
+\def\verbatim{\par\setbox0\vbox\bgroup\oldv}
+\def\endverbatim{\oldendv\egroup\fboxsep0pt \noindent\colorbox[gray]{0.96}{\usebox0}\par}
+
+\usepackage{amssymb}
+%%% Document layout, margins
+\usepackage{geometry}
+\geometry{letterpaper, textwidth=6.5in, textheight=9in, marginparsep=1em}
+%%% Section headings
+\usepackage{sectsty}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\DeclareMathOperator{\E}{\mathrm{E}}
+\DeclareMathOperator{\Exp}{\mathrm{Exp}}
+\DeclareMathOperator{\Var}{\mathrm{Var}}
+\DeclareMathOperator{\KL}{\mathrm{KL}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\N}{\mbox{N}}
+ 
+ 
+\usepackage[round]{natbib}
+
+\makeatletter
+\def\@maketitle{%
+	\begin{center}%
+		\let \footnote \thanks
+		{\large \@title \par}%
+		{\normalsize
+			\begin{tabular}[t]{c}%
+				\@author
+			\end{tabular}\par}%
+		{\small \@date}%
+	\end{center}%
+}
+\makeatother
+
+
+
+\title{\bf  Use Stacking to Average Models for Time Series and Panel Data Under Continuous Ranked Probability Score }
+\author{Yuling Yao}
+\date{\today \vspace{-.1in}}
+\begin{document}\sloppy
+	\maketitle
+	\thispagestyle{empty}
+
+\section{Method}
+The CRPS  for forecast CDFs with a finite first
+moment can be written as
+$$crps(F,y)=\E_X|X-y|- \frac{1}{2}\E_{X,X^\prime}|X-X^\prime|.$$
+
+Given $K$ prediction models and observations $y_{tr}$ (number of observed icu needs) at time $t=1, \dots, T$ and region $r=1,\dots, R$, we could generate one-day-ahead prediction in each model, and draw $K$ predictive samples $x_{1ktr}, \dots, x_{Sktr}$ for the $k$-th model on the  day $t$ and region $r$. The prediction uses all information before $t$ to eliminate over-fitting.
+
+Using these predictive draws, we can compute the crps of the k-th model on the $tr$-th observation by 
+
+$$ \widehat {crps}_{ktr}= \widehat {crps}_(x_{1ktr}, \dots, x_{sktr},y_{tr})= \frac{1}{S} \sum_{s=1}^S  |x_{sktr}-y_{tr}| -
+\frac{1}{2S^2} \sum_{s, j=1}^S |x_{sktr}- x_{jktr}|.$$
+
+Now the goal is to aggregate these $K$ models. It is easy to show that, when prediction is a mixture with weights $w_1, \dots, w_s$, the CRPS can be expressed as
+
+$$ \widehat {crps}_{agg, tr} (w_1, \dots, w_K) = \frac{1}{S} \sum_{k=1}^K w_k  \sum_{s=1}^S |x_{skt}-y_t| -
+\frac{1}{2S^2}  (\sum_{k=1}^K   \sum_{k, k'=1 }^K w_k w_{k'}   \sum_{s, j=1}^S |x_{skt}- x_{jk't}| ).$$
+
+This expression is quadratic on $w$. We only need to compute  $\sum_{s=1}^S |x_{skt}-y_{tr}|$, $\sum_{s, j=1}^S |x_{sktr}- x_{jktr}|$, and 
+$\sum_{s, j=1}^S |x_{sktr}- x_{jk'tr}|$ for all $k, k'$ pairs once and store them for all  weight values in the optimization. 
+
+An extra degree of freedom is how we weight the prediction over time and over regions. In the early days we have very few data so all predictions are noisy and we might want to down weight the early phase in the final model evaluation. Mathematically we can pre-fixed introduce a time-varying weight $\lambda_1, \dots, \lambda_T$, say $\lambda_t = 1.5-(1-t/T)^2$, it penalizes early estimates (smaller t).  Likewise  we take into account the association of regions and individual sample size by a region-specific weight $\tau_r$
+
+Finally we solve a quadratic optimization:
+
+\begin{align*}
+ &\min_{w_1, \dots, w_K} \sum_{t=1}^T  \sum_{r=1}^R\lambda_t\tau_r  \widehat {crps}_{agg, tr} (w), \\
+  &s.t. ~{0\leq w_1, \dots, w_K \leq 1, \sum_{k=1}^K w_k=1}. 
+\end{align*}
+ 
+\end{document}
