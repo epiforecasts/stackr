@@ -8,7 +8,10 @@
 #' \itemize{
 #'   \item model (the model used to generate the correspondig predictions)
 #'   \item geography (the region for which predictions are generated)
-#'   \item date (the date of corresponding )
+#'   \item date (the date of corresponding prediction)
+#'   \item y_obs
+#'   \item y_pred
+#'   \item sample_nr
 #' }
 #' @return list with two elements, an array for the predictions and an array
 #' for the true_values. 
