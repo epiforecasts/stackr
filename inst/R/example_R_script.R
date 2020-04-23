@@ -2,7 +2,7 @@ library(rstan)
 
 seed = 1
 model <- rstan::stan_model("stan/crps_test.stan")
-K = 5 # number of models
+K = 3# number of models
 R = 1 # number of regions
 T = 100 # number of timesteps
 S = 200 # number of predictive samples
@@ -23,16 +23,18 @@ predict_sample_mat <- array(NA, c(T, R, S,K))
 for (r in 1:R) {
   for (t in 1:T) {
       predict_sample_mat[t, r, , ] <- cbind(rnorm(S, 2, 1), 
-                                        rnorm(S, 0.5, 1),
-                                        rnorm(S),
-                                        rnorm(S, 1, 4),  
-                                        rnorm(S, 2, 2.4))
+                                        rnorm(S, 0.5, 1), 
+                                        rnorm(S, mean = 4))
   }
 }
 
 
 # create observed true values
-y_mat <- array(rnorm(S * R), c(R, T))
+y_val <- sample(c(rnorm(S * R, mean = 2), 
+                  rnorm(S * R, mean = 0.5)), 
+                size = S * R)
+
+y_mat <- array(y_val, c(R, T))
 
 
 standata <- list(K = K,
@@ -46,5 +48,7 @@ standata <- list(K = K,
 								 dirichlet_alpha = 1.01
 								 )
 
+model <- stackr:::stanmodels$stacking_crps
 opt <- rstan::optimizing(model, data = standata,seed=20)
 opt
+
