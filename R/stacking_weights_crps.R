@@ -30,7 +30,7 @@ stack_crps <- function(data,
                        gamma = NULL, 
                        dirichlet_alpha = 1.001) {
   
-    arrays <- create_arrays(data)
+    arrays <- stackr::create_arrays(data)
 
     T <- arrays$T
     R <- arrays$R

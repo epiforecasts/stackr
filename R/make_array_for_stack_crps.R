@@ -64,7 +64,7 @@ create_arrays <- function(data) {
       dplyr::filter(geography %in% regions[r], 
                     sample_nr == 1, 
                     model == models[1]) %>%
-      .$y_obs %>% unique()
+      .$y_obs # %>% unique()
   }
   
   return(list(prediction_array = predict_sample_arr, 
