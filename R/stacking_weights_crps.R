@@ -17,8 +17,30 @@
 #' 
 #' @examples
 #' 
-#' stack_crps(stackr::sample_prepared_data)
 #' 
+#' 
+#' splitdate <- as.Date("2020-04-01")
+#' 
+#' traindata <- stackr::sample_prepared_data %>%
+#'   dplyr::filter(date <= splitdate)
+#' 
+#' testdata <- stackr::sample_prepared_data %>%
+#'   dplyr::filter(date > splitdate)
+#'
+#' weights <- stackr::stack_crps(traindata)
+#' 
+#' test_mixture <- stackr::create_sampled_mixture(testdata,
+#'                                                weights = weights)
+#' 
+#' rbind(testdata, 
+#'       test_mixture) %>%
+#'   group_by(model, forecast_date) %>%
+#'   dplyr::mutate(crps = scoringutils::crps(unique(y_obs), 
+#'                                           t(as.vector(y_pred)))) %>%
+#'   group_by(model) %>%
+#'   dplyr::summarise(crps = mean(crps))
+#'
+#'
 #' #Missing
 #' @export
 #' @references Missing
