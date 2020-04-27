@@ -19,7 +19,7 @@
 #' 
 #' 
 #' 
-#' splitdate <- as.Date("2020-04-01")
+#' splitdate <- as.Date("2020-04-01") 
 #' 
 #' traindata <- stackr::sample_prepared_data %>%
 #'   dplyr::filter(date <= splitdate)
@@ -29,8 +29,8 @@
 #'
 #' weights <- stackr::stack_crps(traindata)
 #' 
-#' test_mixture <- stackr::create_sampled_mixture(testdata,
-#'                                                weights = weights)
+#' test_mixture <- mixture_from_sample(testdata, 
+#'                                     weights = weights)
 #' 
 #' rbind(testdata, 
 #'       test_mixture) %>%
