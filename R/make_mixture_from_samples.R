@@ -141,7 +141,7 @@ mixture_from_sample <- function(data,
     individual_draws <- data %>%
       dplyr::filter(model %in% models, 
                     geography %in% regions, 
-                    date %in% as.Date(timepoint)) %>%
+                    date %in% timepoint) %>%
       tidyr::pivot_wider(names_from = model, values_from = y_pred, 
                          names_prefix = "y_pred_") %>%
       dplyr::select(starts_with("y_pred_")) %>%

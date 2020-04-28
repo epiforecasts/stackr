@@ -43,10 +43,10 @@ standata <- list(K = K,
                  S = S,
                  predict_sample_mat = predict_sample_mat, 
                  y = y_mat,
-								 lambda = lambda,
-								 gamma = gamma,
-								 dirichlet_alpha = 1.01
-								 )
+                 lambda = lambda,
+                 gamma = gamma,
+                 dirichlet_alpha = 1.01
+)
 
 model <- stackr:::stanmodels$stacking_crps
 opt <- rstan::optimizing(model, data = standata,seed=20)

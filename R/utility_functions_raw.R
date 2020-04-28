@@ -21,7 +21,7 @@
 #'
 #'
 
-mixture_ensembles <- function(individual_draws,  
+mixture_ensemble_raw <- function(individual_draws,  
                               weight, 
                               random_seed = 1, 
                               permutation = TRUE)
