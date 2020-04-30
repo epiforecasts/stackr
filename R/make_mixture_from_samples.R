@@ -152,8 +152,8 @@ mixture_from_sample <- function(data,
       individual_draws <- individual_draws[sample(1:S), ]	 # random permutation of draws
     }
     
-    round_with_preserved_sum <- function(x) {
-      target_sum = sum(x)
+    round_with_preserved_sum <- function(x, S) {
+      target_sum = S
       
       ints <- as.integer(x)
       int_sum <- sum(ints)
@@ -162,7 +162,7 @@ mixture_from_sample <- function(data,
       decimals <- x - ints
       order <- order(decimals, decreasing = T)
       i <- 1
-      while(remainder > 0) {
+      while(remainder > 0.1) {
         ints[order[i]] <- ints[order[i]] + 1
         remainder <- round(remainder - 1) #round away minimal decimal fraction due to compuational representation
       }
@@ -170,7 +170,7 @@ mixture_from_sample <- function(data,
       return(ints)
     }
     
-    integer_part <- round_with_preserved_sum(S*weights)
+    integer_part <- round_with_preserved_sum(S*weights, S)
     integer_part_index <- c(0,cumsum(integer_part))
     existing_draws <- integer_part_index[K+1]
     
