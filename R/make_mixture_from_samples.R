@@ -164,7 +164,7 @@ mixture_from_sample <- function(data,
       i <- 1
       while(remainder > 0) {
         ints[order[i]] <- ints[order[i]] + 1
-        remainder <- remainder - 1
+        remainder <- round(remainder - 1) #round away minimal decimal fraction due to compuational representation
       }
       
       return(ints)
