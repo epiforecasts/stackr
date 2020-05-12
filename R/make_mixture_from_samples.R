@@ -167,7 +167,7 @@ mixture_from_sample <- function(data,
         remainder <- round(remainder - 1) #round away minimal decimal fraction due to compuational representation
       }
       
-      return(ints)
+     return(ints)
     }
     
     integer_part <- round_with_preserved_sum(S*weights, S)
