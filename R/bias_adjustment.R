@@ -41,6 +41,7 @@ bias_adjustment <- function(y_true,
   model <- stanmodels$bias_adjustment
   
   if (is.null(lambda))
+    lambda <- rep(1, T)
     for (t in 1:T)
       lambda[t] <- 2 - (1 - t / T)^2
 
@@ -49,7 +50,7 @@ bias_adjustment <- function(y_true,
                    S = S, 
                    predict_sample_mat = y_pred, 
                    # dirichlet_alpha = 1.001, 
-                   lambda = rep(1, t))
+                   lambda = lambda)
     
   model <- stanmodels$bias_adjustment     # use inside package
   
