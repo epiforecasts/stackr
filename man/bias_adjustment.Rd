@@ -4,7 +4,7 @@
 \alias{bias_adjustment}
 \title{Make a simple bias correction based on CRPS}
 \usage{
-bias_adjustment(y_true, y_pred)
+bias_adjustment(y_true, y_pred, lambda = NULL)
 }
 \arguments{
 \item{a}{data.frame with the following entries: 
