@@ -52,7 +52,7 @@ create_arrays <- function(data) {
       predict_sample_arr[t, r, , ] <- data %>% 
         dplyr::select(c(model, sample_nr, date, y_pred, geography)) %>%
         dplyr::filter(date == dates[t], geography == regions[r]) %>%
-        pivot_wider(names_from = model, values_from = y_pred) %>%
+        tidyr::pivot_wider(names_from = model, values_from = y_pred) %>%
         dplyr::select(all_of(models)) %>%
         as.matrix()
     }
