@@ -122,16 +122,3 @@ crps_weights <- function(data,
   opt <- rstan::optimizing(model, data = standata)
   return(opt$par)
 }
-
-# # turn data into a data.table
-# # data.table::setDT(data)
-# # pred_array <- array(data[order(model, sample_nr, geography)]$y_pred, 
-# #                     dim = c(T, R, S, K))
-# 
-# arrays$prediction_array %>% dim()
-# 
-#   # turn data.frame into arrays for further processing
-# arrays <- stackr::create_arrays(testdata)
-# 
-# T <- arrays$T
-# R <- arrays$R
