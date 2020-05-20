@@ -6,7 +6,8 @@
 \alias{stackr}
 \title{The 'stackr' package.}
 \description{
-A DESCRIPTION OF THE PACKAGE
+A package to do model stacking based on predictive samples according to 
+the Continuous Ranked Probability Score CRPS.
 }
 \references{
 Stan Development Team (2020). RStan: the R interface to Stan. R package version 2.19.3. https://mc-stan.org

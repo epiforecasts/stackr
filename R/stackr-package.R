@@ -1,6 +1,8 @@
 #' The 'stackr' package.
 #'
-#' @description A DESCRIPTION OF THE PACKAGE
+#' @description 
+#' A package to do model stacking based on predictive samples according to 
+#' the Continuous Ranked Probability Score CRPS. 
 #'
 #' @docType package
 #' @name stackr-package
