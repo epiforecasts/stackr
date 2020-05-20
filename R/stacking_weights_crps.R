@@ -2,7 +2,7 @@
 #'
 #' @description
 #' given true values and predictive samples from different models, 
-#' `crps_weights` returns the stacking weights that produce the ensemble
+#' `crps_weights` returns the stacking weights which produce the ensemble
 #' that minimises the Continuos Ranked Probability Score (CRPS). 
 #' 
 #' @param data a data.frame with the following entries: 
@@ -11,11 +11,12 @@
 #'   \item y_pred a predicted value corresponding to the true value in y_obs
 #'   \item model (the model used to generate the correspondig predictions)
 #'   \item geography (the regions for which predictions are generated). If 
-#'   geography is missing, it will be assumed there is only one region.
+#'   geography is missing, it will be assumed there are no different regions.
 #'   \item date (the date of the corresponding prediction / true value)
 #' }
 #' @param lambda weights given to timepoints. If \code{lamba} is \code{NULL}, 
-#' the default is a quadratic weight, were lambda[t] = 2 - (1 - t / T)^2. 
+#' the default gives more weight to recent time points with 
+#' lambda[t] = 2 - (1 - t / T)^2. 
 #' \code{lambda = "equal"} uses equal weights
 #' 
 #' @param gamma weights given to regions. If \code{gamma} is \code{NULL} the 
@@ -26,11 +27,14 @@
 #' @param dirichlet_alpha prior for the weights
 #' 
 #' @importFrom magrittr "%>%"
+#' @importFrom dplyr arrange filter pull
+#' @importFrom rstan optimizing
 #' 
-#' @return returns a vector with the model weights
+#' @return returns a vector with the model weights 
 #' 
 #' @examples
 #' 
+#' \dontrun{
 #' splitdate <- as.Date("2020-04-01") 
 #' 
 #' traindata <- stackr::sample_prepared_data %>%
@@ -51,13 +55,20 @@
 #'                                           t(as.vector(y_pred)))) %>%
 #'   group_by(model) %>%
 #'   dplyr::summarise(crps = mean(crps))
-#'
-#'
-#' #Missing
-#' @export
-#' @references Missing
+#' }
 #' 
-#'
+#' @export
+#' 
+#' @references 
+#' Strictly Proper Scoring Rules, Prediction,and Estimation,
+#' Tilmann Gneiting and Adrian E. Raftery, 2007, Journal of the American
+#' Statistical Association, Volume 102, 2007 - Issue 477
+#' 
+#' Using Stacking to Average Bayesian Predictive Distributions, 
+#' Yuling Yao , Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, 
+#' Bayesian Analysis 13, Number 3, pp. 917–1003
+#' 
+
 
 crps_weights <- function(data, 
                          lambda = NULL, 
@@ -65,8 +76,9 @@ crps_weights <- function(data,
                          dirichlet_alpha = 1.001) {
   
   # check if geography exists. if not, create a region
-  if (!("geography" %in% names(data)))
+  if (!("geography" %in% names(data))) {
     data$geography <- "Atlantis"
+  }
   
   # number of models
   models <- unique(data$model) 
@@ -83,11 +95,21 @@ crps_weights <- function(data,
   dates <- unique(data$date)
   T <- length(dates)
 
+  data.table::setDT(data)
+  
   # turn predictions into array that can be passed to the stan model
-  pred_array <- array(dplyr::arrange(testdata, model, sample_nr, geography)$y_pred, 
-              dim = c(T, R, S, K))
+  pred_array <- array(data[order(model, sample_nr, geography)]$y_pred, 
+             dim = c(T, R, S, K))
+  
+  # pred_array <- array(dplyr::arrange(testdata, model, sample_nr, geography)$y_pred, 
+  #             dim = c(T, R, S, K))
   
   # turn observations into array that can be passed to the stan model
+  y <- data[sample_nr == 1 & model == models[1]][order(date, geography), get("y_obs")]
+  y_array <- array(y, dim = c(R, T))
+  
+  
+  
   y_array <- dplyr::filter(data, 
                            sample_nr == 1, 
                            model == models[1]) %>%
@@ -95,18 +117,19 @@ crps_weights <- function(data,
     dplyr::pull(y_obs) %>%
     array(c(R, T))
 
-  # assign quadratic or equal weights if no lambda vector is provided
+  # assign increasing or equal weights if no lambda vector is provided
+  # note that elemeents of lambda need not necessarily sum up to one as the 
+  # constraint that the final weights sum to 1 is already implemented in stan
   if (is.null(lambda)) {
-    for (t in 1:T)
-      lambda[t] <- 2 - (1 - t / T)^2
+    lambda <- 2 - (1 - (1:T / T))^2
   } else if (lambda == "equal") {
     lambda <- rep(1/T, T)
   }
   
   # assign equal weights to regions if no gamma is provided
-  if (is.null(gamma))
+  if (is.null(gamma)) {
     gamma <- array(rep(1 / R, R))
-  
+  }
   
   standata <- list(K = K,
                    R = R,
