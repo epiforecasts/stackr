@@ -1,13 +1,21 @@
 Package: stackr
-Title: What the Package Does (One Line, Title Case)
+Title: Create Mixture Models From Predictive Samples
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Nikos",
+           family = "Bosse",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "nikosbosse@gmail.com",
+           comment = c(ORCID = "https://orcid.org/0000-0002-7750-5280"))
+Description: The stackr package provides an easy way to stack models based on 
+    the Continuous Ranked Probability Score (CRPS) based on predictive samples. 
+    Given some training data with true observed values as well as predictions
+    generated from different models, stackr finds the optimal weights to form an 
+    ensemble from these models. Using these weights, stackr can then provide
+    samples from the optimal model mixture by drawing from the predictice samples
+    of those models in the correct proportion. This gives a true mixture model
+    solely based on predictive samples and is in this regard superior to other 
+    ensembling techniques like Bayesian Model Averaging. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -15,13 +23,11 @@ Biarch: true
 Depends: 
     R (>= 3.4.0)
 Imports: 
+    data.table,
     methods,
     Rcpp (>= 0.12.0),
     rstan (>= 2.18.1),
-    rstantools (>= 2.0.0),
-    magrittr,
-    dplyr,
-    tidyr
+    rstantools (>= 2.0.0)
 LinkingTo: 
     BH (>= 1.66.0),
     Rcpp (>= 0.12.0),
