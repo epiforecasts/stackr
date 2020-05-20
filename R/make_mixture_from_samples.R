@@ -13,7 +13,20 @@
 #' @param weights stacking weights used to combine the original model to a 
 #' mixture model
 #' 
-#' @return data.frame with the original columns samples from the mixture model
+#' @return data.frame with samples from the mixture model. The following 
+#' columns are returned: 
+#' \itemize{
+#'   \item y_obs, the true observed values
+#'   \item y_pred, predicted values corresponding to the true values in y_obs
+#'   \item model, the name of the model used to generate the correspondig 
+#'   predictions
+#'   \item geography (optional), the regions for which predictions are 
+#'   generated. If geography is missing, it will be assumed there are no 
+#'   geographical differenes to take into account. Internally, regions will
+#'   be ordered alphabetically 
+#'   \item date (the date of the corresponding prediction / true value). Also
+#'   works with numbers to indicate timesteps
+#' }
 #' @examples
 #' 
 #' \dontrun{
@@ -24,6 +37,7 @@
 #' mixture_from_samples(data, weights = weights)
 #' }
 #' 
+#' @import data.table
 #' @export
 #' 
 #' @references 
@@ -80,30 +94,16 @@ mixture_from_samples <- function(data,
   dt_wide[, CRPS_Mixture := draw(.SD, weights, S, models), 
           by = c("geography", "date")]
   
-  
+  # clean up formatting
   out <- dt_wide[, c("geography", "date", "sample_nr", "CRPS_Mixture")]
+  out[, model := "CRPS_Mixture"]
+  data.table::setnames(out, "CRPS_Mixture", "y_pred")
   
   # drop region column if there were none in the input data 
   if (no_region) {
     out[, geography := NULL]
   }
   
-  return(out)
-  
-  
-  # # copy one model and fill data.frame
-  # mix <- data %>%
-  #   dplyr::filter(model == models[1]) %>%
-  #   dplyr::group_by(geography, date) %>%
-  #   dplyr::mutate(model = "Mixture") %>%
-  #   dplyr::mutate(y_pred = draw_from_models(data, 
-  #                                           models, 
-  #                                           weights, 
-  #                                           unique(geography), 
-  #                                           S,
-  #                                           unique(date))) %>%
-  #   dplyr::ungroup()
-  # 
-  # return(mix)
+  return(out[])
 }
 
