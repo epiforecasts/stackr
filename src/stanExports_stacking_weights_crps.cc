@@ -2,12 +2,12 @@
 
 #include <Rcpp.h>
 using namespace Rcpp ;
-#include "stanExports_stacking_crps.h"
+#include "stanExports_stacking_weights_crps.h"
 
-RCPP_MODULE(stan_fit4stacking_crps_mod) {
+RCPP_MODULE(stan_fit4stacking_weights_crps_mod) {
 
 
-    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("model_stacking_crps")
+    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("model_stacking_weights_crps")
 
     .constructor<SEXP,SEXP,SEXP>()
 

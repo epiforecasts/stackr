@@ -40,26 +40,24 @@
 #' @examples
 #' 
 #' \dontrun{
-#' splitdate <- as.Date("2020-04-01") 
+#' library(data.table)
+#' splitdate <- as.Date("2020-03-28")
+#' data <- stackr::example_data 
 #' 
-#' traindata <- stackr::sample_prepared_data %>%
-#'   dplyr::filter(date <= splitdate)
-#' 
-#' testdata <- stackr::sample_prepared_data %>%
-#'   dplyr::filter(date > splitdate)
+#' traindata <- data[date <= splitdate, ]
+#' testdata <- data[date > splitdate, ]
 #'
-#' weights <- crps_weights(traindata)
+#' weights <- stackr::crps_weights(traindata)
 #' 
-#' test_mixture <- mixture_from_sample(testdata, 
+#' test_mixture <- stackr::mixture_from_samples(testdata, 
 #'                                     weights = weights)
+#' score_df <- rbind(testdata, 
+#'                   test_mixture)
 #' 
-#' rbind(testdata, 
-#'       test_mixture) %>%
-#'   group_by(model, forecast_date) %>%
-#'   dplyr::mutate(crps = scoringutils::crps(unique(y_obs), 
-#'                                           t(as.vector(y_pred)))) %>%
-#'   group_by(model) %>%
-#'   dplyr::summarise(crps = mean(crps))
+#' score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)), 
+#'          by = c("geography", "model", "date")]
+#' 
+#' score_df[, mean(crps), by = model]
 #' }
 #' 
 #' @export
@@ -135,7 +133,7 @@ crps_weights <- function(data,
                    gamma = gamma,
                    dirichlet_alpha = dirichlet_alpha)
   
-  model <- stanmodels$stacking_crps    
+  model <- stanmodels$stacking_weights_crps    
   opt <- rstan::optimizing(model, data = standata)
   return(opt$par)
 }

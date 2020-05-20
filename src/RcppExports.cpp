@@ -7,10 +7,10 @@
 using namespace Rcpp;
 
 
-RcppExport SEXP _rcpp_module_boot_stan_fit4stacking_crps_mod();
+RcppExport SEXP _rcpp_module_boot_stan_fit4stacking_weights_crps_mod();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rcpp_module_boot_stan_fit4stacking_crps_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4stacking_crps_mod, 0},
+    {"_rcpp_module_boot_stan_fit4stacking_weights_crps_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4stacking_weights_crps_mod, 0},
     {NULL, NULL, 0}
 };
 

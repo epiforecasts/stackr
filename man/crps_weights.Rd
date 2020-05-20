@@ -9,17 +9,23 @@ crps_weights(data, lambda = NULL, gamma = NULL, dirichlet_alpha = 1.001)
 \arguments{
 \item{data}{a data.frame with the following entries: 
 \itemize{
-  \item y_obs the true observed value
-  \item y_pred a predicted value corresponding to the true value in y_obs
-  \item model (the model used to generate the correspondig predictions)
-  \item geography (the regions for which predictions are generated). If 
-  geography is missing, it will be assumed there are no different regions.
-  \item date (the date of the corresponding prediction / true value)
+  \item y_obs, the true observed values
+  \item y_pred, predicted values corresponding to the true values in y_obs
+  \item model, the name of the model used to generate the correspondig 
+  predictions
+  \item geography (optional), the regions for which predictions are 
+  generated. If geography is missing, it will be assumed there are no 
+  geographical differenes to take into account. Internally, regions will
+  be ordered alphabetically 
+  \item date (the date of the corresponding prediction / true value). Also
+  works with numbers to indicate timesteps
 }}
 
 \item{lambda}{weights given to timepoints. If \code{lamba} is \code{NULL}, 
 the default gives more weight to recent time points with 
-lambda[t] = 2 - (1 - t / T)^2. 
+lambda[t] = 2 - (1 - t / T)^2. Note that elemeents of lambda need not 
+necessarily sum up to one as the stan model automatically constraints 
+the final weights to sum to one irrespective of lambda. 
 \code{lambda = "equal"} uses equal weights}
 
 \item{gamma}{weights given to regions. If \code{gamma} is \code{NULL} the 
@@ -27,7 +33,7 @@ default is equal weights for the regions. Weights are mapped to regions
 alphabetically, so make sure that the the weights correspond to the 
 regions in alphabetical order.}
 
-\item{dirichlet_alpha}{prior for the weights}
+\item{dirichlet_alpha}{prior for the weights. Default is 1.001}
 }
 \value{
 returns a vector with the model weights
@@ -40,26 +46,24 @@ that minimises the Continuos Ranked Probability Score (CRPS).
 \examples{
 
 \dontrun{
-splitdate <- as.Date("2020-04-01") 
+library(data.table)
+splitdate <- as.Date("2020-03-28")
+data <- stackr::example_data 
 
-traindata <- stackr::sample_prepared_data \%>\%
-  dplyr::filter(date <= splitdate)
+traindata <- data[date <= splitdate, ]
+testdata <- data[date > splitdate, ]
 
-testdata <- stackr::sample_prepared_data \%>\%
-  dplyr::filter(date > splitdate)
+weights <- stackr::crps_weights(traindata)
 
-weights <- crps_weights(traindata)
-
-test_mixture <- mixture_from_sample(testdata, 
+test_mixture <- stackr::mixture_from_samples(testdata, 
                                     weights = weights)
+score_df <- rbind(testdata, 
+                  test_mixture)
 
-rbind(testdata, 
-      test_mixture) \%>\%
-  group_by(model, forecast_date) \%>\%
-  dplyr::mutate(crps = scoringutils::crps(unique(y_obs), 
-                                          t(as.vector(y_pred)))) \%>\%
-  group_by(model) \%>\%
-  dplyr::summarise(crps = mean(crps))
+score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)), 
+         by = c("geography", "model", "date")]
+
+score_df[, mean(crps), by = model]
 }
 
 }
