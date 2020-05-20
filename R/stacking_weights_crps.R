@@ -7,16 +7,22 @@
 #' 
 #' @param data a data.frame with the following entries: 
 #' \itemize{
-#'   \item y_obs the true observed value
-#'   \item y_pred a predicted value corresponding to the true value in y_obs
-#'   \item model (the model used to generate the correspondig predictions)
-#'   \item geography (the regions for which predictions are generated). If 
-#'   geography is missing, it will be assumed there are no different regions.
-#'   \item date (the date of the corresponding prediction / true value)
+#'   \item y_obs, the true observed values
+#'   \item y_pred, predicted values corresponding to the true values in y_obs
+#'   \item model, the name of the model used to generate the correspondig 
+#'   predictions
+#'   \item geography (optional), the regions for which predictions are 
+#'   generated. If geography is missing, it will be assumed there are no 
+#'   geographical differenes to take into account. Internally, regions will
+#'   be ordered alphabetically 
+#'   \item date (the date of the corresponding prediction / true value). Also
+#'   works with numbers to indicate timesteps
 #' }
 #' @param lambda weights given to timepoints. If \code{lamba} is \code{NULL}, 
 #' the default gives more weight to recent time points with 
-#' lambda[t] = 2 - (1 - t / T)^2. 
+#' lambda[t] = 2 - (1 - t / T)^2. Note that elemeents of lambda need not 
+#' necessarily sum up to one as the stan model automatically constraints 
+#' the final weights to sum to one irrespective of lambda. 
 #' \code{lambda = "equal"} uses equal weights
 #' 
 #' @param gamma weights given to regions. If \code{gamma} is \code{NULL} the 
@@ -24,10 +30,9 @@
 #' alphabetically, so make sure that the the weights correspond to the 
 #' regions in alphabetical order. 
 #' 
-#' @param dirichlet_alpha prior for the weights
+#' @param dirichlet_alpha prior for the weights. Default is 1.001
 #' 
-#' @importFrom magrittr "%>%"
-#' @importFrom dplyr arrange filter pull
+#' @import data.table
 #' @importFrom rstan optimizing
 #' 
 #' @return returns a vector with the model weights 
@@ -108,18 +113,7 @@ crps_weights <- function(data,
   y <- data[sample_nr == 1 & model == models[1]][order(date, geography), get("y_obs")]
   y_array <- array(y, dim = c(R, T))
   
-  
-  
-  y_array <- dplyr::filter(data, 
-                           sample_nr == 1, 
-                           model == models[1]) %>%
-    dplyr::arrange(date, geography) %>%
-    dplyr::pull(y_obs) %>%
-    array(c(R, T))
-
   # assign increasing or equal weights if no lambda vector is provided
-  # note that elemeents of lambda need not necessarily sum up to one as the 
-  # constraint that the final weights sum to 1 is already implemented in stan
   if (is.null(lambda)) {
     lambda <- 2 - (1 - (1:T / T))^2
   } else if (lambda == "equal") {
