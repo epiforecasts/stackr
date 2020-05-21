@@ -26,19 +26,21 @@ devtools::install_github("nikosbosse/stackr")
 ```
 library(data.table)
 splitdate <- as.Date("2020-03-28")
-data <- stackr::example_data
+data <- data.table::setDT(stackr::example_data)
 
-traindata <- data[date <= splitdate, ]
-testdata <- data[date > splitdate, ]
+traindata <- data[date <= splitdate]
+testdata <- data[date > splitdate]
 
 weights <- stackr::crps_weights(traindata)
 
 test_mixture <- stackr::mixture_from_samples(testdata,
                                      weights = weights)
-score_df <- rbind(testdata,
-                   test_mixture)
+score_df <- data.table::rbindlist(
+               list(testdata, test_mixture), fill = TRUE
+                   )
+                   
 score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)),
-        by = c("geography", "model", "date")]
+        by = .(geography, model, date)]
 
 score_df[, mean(crps), by = model]
 ```
