@@ -26,7 +26,7 @@ devtools::install_github("nikosbosse/stackr")
 ```
 library(data.table)
 splitdate <- as.Date("2020-03-28")
-data <- stackr::example_data
+data <- data.table::setDT(stackr::example_data)
 
 traindata <- data[date <= splitdate]
 testdata <- data[date > splitdate]
