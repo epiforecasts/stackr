@@ -44,7 +44,7 @@
 #' splitdate <- as.Date("2020-03-28")
 #' data <- data.table::setDT(stackr::example_data)
 #' 
-#' traindata <- data[date <= splitdata]
+#' traindata <- data[date <= splitdate]
 #' testdata <- data[date > splitdate]
 #'
 #' weights <- stackr::crps_weights(traindata)
