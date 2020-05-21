@@ -63,7 +63,7 @@ mixture_from_samples <- function(data,
   
   # check if geography exists. if not, create a region
   if (!("geography" %in% names(data))) {
-    data$geography <- "Atlantis"
+    data <- data[, geography := "Atlantis"]
     no_region <- TRUE
   } else {
     no_region <- FALSE
@@ -81,13 +81,13 @@ mixture_from_samples <- function(data,
     # get an integer value of how many samples to draw from each model
     # note: instead of a rounding with preserved sum we might want to add
     # some randomness in where we round up so that there is no systematic bias
-    num_draws <- round_with_preserved_sum(S*weights)
+    num_draws <- round_with_preserved_sum(S * weights)
     
     # draw from individual models
     # note: maybe switch to purrr here
     mixture_vector <- sapply(seq_along(num_draws), 
                              FUN = function(i) {
-                               sample(x = dat[, get(..models[i])], 
+                               sample(x = dat[, models[i], with = FALSE], 
                                       size = num_draws[i])
                              })
     return(do.call(c, mixture_vector))
@@ -99,7 +99,7 @@ mixture_from_samples <- function(data,
   # keep y_obs if it was provided
   if (("y_obs" %in% names(data))) {
     dt_wide <- data.table::dcast.data.table(data, 
-                                            geography + date + sample_nr + y_obs~ model, 
+                                            geography + date + sample_nr + y_obs ~ model, 
                                             value.var = "y_pred")
   } else {
     dt_wide <- data.table::dcast.data.table(data, 
@@ -111,7 +111,7 @@ mixture_from_samples <- function(data,
   
   # draw 
   dt_wide[, CRPS_Mixture := draw(.SD, weights, S, models), 
-          by = c("geography", "date")]
+          by = .(geography, date)]
   
   # clean up formatting
   out <- dt_wide[, (models) := NULL]
