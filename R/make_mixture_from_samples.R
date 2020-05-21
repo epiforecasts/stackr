@@ -37,6 +37,7 @@
 #'   \item date (the date of the corresponding prediction / true value). Also
 #'   works with numbers to indicate timesteps
 #' }
+#' @importFrom data.table setDT dcast.data.table setnames
 #' @examples
 #' 
 #' \dontrun{
@@ -60,6 +61,8 @@
 mixture_from_samples <- function(data,
                                  weights = NULL) {
   
+  
+  data <- setDT(data)
   
   # check if geography exists. if not, create a region
   if (!("geography" %in% names(data))) {
@@ -123,6 +126,6 @@ mixture_from_samples <- function(data,
     out[, geography := NULL]
   }
   
-  return(out[])
+  return(out)
 }
 
