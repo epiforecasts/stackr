@@ -25,23 +25,21 @@ devtools::install_github("nikosbosse/stackr")
 ## Usage
 ```
 library(data.table)
+
+# create training and test data set
 splitdate <- as.Date("2020-03-28")
 data <- data.table::setDT(stackr::example_data)
-
 traindata <- data[date <= splitdate]
 testdata <- data[date > splitdate]
 
+# get weights and make mixture 
 weights <- stackr::crps_weights(traindata)
+test_mixture <- stackr::mixture_from_samples(testdata, weights = weights)
 
-test_mixture <- stackr::mixture_from_samples(testdata,
-                                     weights = weights)
-score_df <- data.table::rbindlist(
-               list(testdata, test_mixture), fill = TRUE
-                   )
-                   
+# score predictions
+score_df <- data.table::rbindlist(list(testdata, test_mixture), fill = TRUE)
 score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)),
         by = .(geography, model, date)]
-
 score_df[, mean(crps), by = model]
 ```
 
