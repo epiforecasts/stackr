@@ -7,6 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "nikosbosse@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-7750-5280"))
+    person(given = "Yuling",
+           family = "Yao",
+           role = c("aut"),
+           email = "yy2619@columbia.edu")
 Description: The stackr package provides an easy way to stack models based on 
     the Continuous Ranked Probability Score (CRPS) based on predictive samples. 
     Given some training data with true observed values as well as predictions
