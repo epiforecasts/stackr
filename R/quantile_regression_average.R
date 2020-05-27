@@ -133,6 +133,11 @@ qra_estimate_weights <-
 ##' set to the weighted averages; and `weights`, a data frame giving the weights
 ##' @export
 ##' @author Sebastian Funk
+##' @references 
+##' Nowotarski, J., Weron, R. Computing electricity spot price prediction 
+##' intervals using quantile regression and forecast averaging. Comput Stat 30, 
+##' 791–803 (2015). https://doi.org/10.1007/s00180-014-0523-0
+##' 
 
 qra <- function(forecasts, data, target_date, min_date, max_date,
                 pool, intervals,
