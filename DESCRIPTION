@@ -2,15 +2,25 @@ Package: stackr
 Title: Create Mixture Models From Predictive Samples
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Nikos",
-           family = "Bosse",
-           role = c("aut", "cre"),
-           email = "nikosbosse@gmail.com",
-           comment = c(ORCID = "https://orcid.org/0000-0002-7750-5280"))
-    person(given = "Yuling",
-           family = "Yao",
-           role = c("aut"),
-           email = "yy2619@columbia.edu")
+    c(person(given = "Nikos",
+             family = "Bosse",
+             role = c("aut", "cre"),
+             email = "nikosbosse@gmail.com",
+             comment = c(ORCID = "0000-0002-7750-5280")),
+      person(given = "Yuling",
+             family = "Yao",
+             role = c("aut"),
+             email = "yy2619@columbia.edu"),
+      person(given = "Sebastian",
+             family = "Funk",
+             role = c("aut"),
+             email = "sebastian.funk@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0002-2842-3406")),
+      person(given = "Sam", 
+            family = "Abbott",
+            role = c("aut"),
+            email = "contact@samabbott.co.uk",
+            comment = c(ORCID = "0000-0001-8057-8037")))
 Description: The stackr package provides an easy way to stack models based on 
     the Continuous Ranked Probability Score (CRPS) based on predictive samples. 
     Given some training data with true observed values as well as predictions
