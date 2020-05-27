@@ -36,12 +36,24 @@ LazyData: true
 Biarch: true
 Depends: 
     R (>= 3.4.0)
+Remotes:
+    epiforecasts/scoringutils
 Imports: 
     data.table,
+    dplyr,
+    future.apply, 
+    magrittr,
     methods,
+    nloptr, 
+    purrr, 
     Rcpp (>= 0.12.0),
+    readr, 
+    rlang, 
     rstan (>= 2.18.1),
-    rstantools (>= 2.0.0)
+    rstantools (>= 2.0.0),
+    scoringutils, 
+    tidyr, 
+    tidyselect
 LinkingTo: 
     BH (>= 1.66.0),
     Rcpp (>= 0.12.0),

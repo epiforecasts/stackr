@@ -45,12 +45,40 @@ round_with_preserved_sum <- function(vector, type = "LRM") {
 }
 
 
-globalVariables(c("..models", 
+globalVariables(c(".", 
+                  "..models", 
+                  "any_na",
                   "CRPS_Mixture", 
                   "geography", 
                   "model", 
-                  "sample_nr"))
+                  "sample_nr", 
+                  "boundary", 
+                  "centile", 
+                  "creation_date", 
+                  "data", 
+                  "horizon", 
+                  "interval", 
+                  "lower", 
+                  "max_horizon", 
+                  "n",
+                  "percentile", 
+                  "test_data", 
+                  "upper", 
+                  "value", 
+                  "value_date", 
+                  "weight"))
 
 
 
 
+#' Pipe operator
+#'
+#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL
