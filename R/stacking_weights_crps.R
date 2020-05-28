@@ -32,7 +32,7 @@
 #' 
 #' @param dirichlet_alpha prior for the weights. Default is 1.001
 #' 
-#' @import data.table
+#' @importFrom data.table `:=` setDT 
 #' @importFrom rstan optimizing
 #' 
 #' @return returns a vector with the model weights 
@@ -42,22 +42,23 @@
 #' \dontrun{
 #' library(data.table)
 #' splitdate <- as.Date("2020-03-28")
-#' data <- stackr::example_data 
+#' data <- data.table::setDT(stackr::example_data)
 #' 
-#' traindata <- data[date <= splitdate, ]
-#' testdata <- data[date > splitdate, ]
+#' traindata <- data[date <= splitdate]
+#' testdata <- data[date > splitdate]
 #'
 #' weights <- stackr::crps_weights(traindata)
 #' 
 #' test_mixture <- stackr::mixture_from_samples(testdata, 
 #'                                     weights = weights)
-#' score_df <- rbind(testdata, 
-#'                   test_mixture)
+#'                                     
+#' score_df <- data.table::rbindlist(list(testdata,test_mixture),
+#'                                   fill = TRUE)
 #' 
 #' score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)), 
-#'          by = c("geography", "model", "date")]
+#'          by = .(geography, model, date)]
 #' 
-#' score_df[, mean(crps), by = model]
+#' score_df[, mean(crps), by = model][, setnames(.SD, "V1", "CRPS")]
 #' }
 #' 
 #' @export
@@ -78,9 +79,11 @@ crps_weights <- function(data,
                          gamma = NULL, 
                          dirichlet_alpha = 1.001) {
   
+  data.table::setDT(data)
+  
   # check if geography exists. if not, create a region
   if (!("geography" %in% names(data))) {
-    data$geography <- "Atlantis"
+    data <- data[, geography := "Atlantis"]
   }
   
   # number of models
@@ -97,18 +100,13 @@ crps_weights <- function(data,
   # get number of timepoints 
   dates <- unique(data$date)
   T <- length(dates)
-
-  data.table::setDT(data)
   
   # turn predictions into array that can be passed to the stan model
   pred_array <- array(data[order(model, sample_nr, geography)]$y_pred, 
              dim = c(T, R, S, K))
   
-  # pred_array <- array(dplyr::arrange(testdata, model, sample_nr, geography)$y_pred, 
-  #             dim = c(T, R, S, K))
-  
   # turn observations into array that can be passed to the stan model
-  y <- data[sample_nr == 1 & model == models[1]][order(date, geography), get("y_obs")]
+  y <- data[sample_nr == 1 & model == models[1]][order(date, geography)][, y_obs]
   y_array <- array(y, dim = c(R, T))
   
   # assign increasing or equal weights if no lambda vector is provided
