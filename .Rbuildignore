@@ -3,3 +3,8 @@
 ^LICENSE\.md$
 .travis.yml
 ^README.Rmd
+^configure$
+^configure\.win$
+^src/.*\.so
+^src/.*\.dll
+^src/.*\.o
