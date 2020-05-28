@@ -50,6 +50,11 @@ set to the weighted averages; and `weights`, a data frame giving the weights
 Quantile Regression Average
 Calculates a quantile regression average for forecasts.
 }
+\references{
+Nowotarski, J., Weron, R. Computing electricity spot price prediction 
+intervals using quantile regression and forecast averaging. Comput Stat 30, 
+791–803 (2015). https://doi.org/10.1007/s00180-014-0523-0
+}
 \author{
 Sebastian Funk
 }
