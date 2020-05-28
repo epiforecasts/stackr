@@ -1,10 +1,11 @@
 ^stackr\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-.travis.yml
+^.travis.yml
 ^README.Rmd
 ^configure$
 ^configure\.win$
 ^src/.*\.so
 ^src/.*\.dll
 ^src/.*\.o
+^.github
