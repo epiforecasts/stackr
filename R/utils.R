@@ -45,8 +45,12 @@ round_with_preserved_sum <- function(vector, type = "LRM") {
 }
 
 
-globalVariables(c("..models", 
+globalVariables(c(".", 
+                  ".SD",
+                  "..", 
+                  "..models", 
                   "CRPS_Mixture", 
                   "geography", 
                   "model", 
-                  "sample_nr"))
+                  "sample_nr", 
+                  "y_obs"))
