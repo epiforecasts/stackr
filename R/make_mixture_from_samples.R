@@ -40,14 +40,14 @@
 #' @examples
 #' 
 #' \dontrun{
-#' data <- stackr::example_data
+#' data <- data.table::setDT(stackr::example_data)
 #' 
 #' weights <- stackr::crps_weights(data)
 #' 
-#' stackr::mixture_from_samples(data, weights = weights)
+#' mix <- stackr::mixture_from_samples(data, weights = weights)
 #' }
 #' 
-#' @import data.table
+#' @importFrom data.table `:=` setDT dcast.data.table setnames
 #' @export
 #' 
 #' @references 
@@ -60,10 +60,11 @@
 mixture_from_samples <- function(data,
                                  weights = NULL) {
   
+  data.table::setDT(data)
   
   # check if geography exists. if not, create a region
   if (!("geography" %in% names(data))) {
-    data$geography <- "Atlantis"
+    data <- data[, geography := "Endor"]
     no_region <- TRUE
   } else {
     no_region <- FALSE
@@ -81,7 +82,7 @@ mixture_from_samples <- function(data,
     # get an integer value of how many samples to draw from each model
     # note: instead of a rounding with preserved sum we might want to add
     # some randomness in where we round up so that there is no systematic bias
-    num_draws <- round_with_preserved_sum(S*weights)
+    num_draws <- round_with_preserved_sum(S * weights)
     
     # draw from individual models
     # note: maybe switch to purrr here
@@ -93,13 +94,11 @@ mixture_from_samples <- function(data,
     return(do.call(c, mixture_vector))
   }
   
-  data.table::setDT(data)
-  
   # from long to wide format
   # keep y_obs if it was provided
   if (("y_obs" %in% names(data))) {
     dt_wide <- data.table::dcast.data.table(data, 
-                                            geography + date + sample_nr + y_obs~ model, 
+                                            geography + date + sample_nr + y_obs ~ model, 
                                             value.var = "y_pred")
   } else {
     dt_wide <- data.table::dcast.data.table(data, 
@@ -111,7 +110,7 @@ mixture_from_samples <- function(data,
   
   # draw 
   dt_wide[, CRPS_Mixture := draw(.SD, weights, S, models), 
-          by = c("geography", "date")]
+          by = .(geography, date)]
   
   # clean up formatting
   out <- dt_wide[, (models) := NULL]
@@ -123,6 +122,6 @@ mixture_from_samples <- function(data,
     out[, geography := NULL]
   }
   
-  return(out[])
+  return(out)
 }
 

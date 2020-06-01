@@ -11,16 +11,16 @@ Authors@R:
              family = "Yao",
              role = c("aut"),
              email = "yy2619@columbia.edu"),
-      person(given = "Sebastian",
-             family = "Funk",
-             role = c("aut"),
-             email = "sebastian.funk@lshtm.ac.uk",
-             comment = c(ORCID = "0000-0002-2842-3406")),
       person(given = "Sam", 
             family = "Abbott",
             role = c("aut"),
             email = "contact@samabbott.co.uk",
-            comment = c(ORCID = "0000-0001-8057-8037")))
+            comment = c(ORCID = "0000-0001-8057-8037")), 
+      person(given = "Sebastian",
+             family = "Funk",
+             role = c("aut"),
+             email = "sebastian.funk@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0002-2842-3406")))
 Description: The stackr package provides an easy way to stack models based on 
     the Continuous Ranked Probability Score (CRPS) based on predictive samples. 
     Given some training data with true observed values as well as predictions
@@ -40,20 +40,10 @@ Remotes:
     epiforecasts/scoringutils
 Imports: 
     data.table,
-    dplyr,
-    future.apply, 
-    magrittr,
     methods,
-    nloptr, 
-    purrr, 
     Rcpp (>= 0.12.0),
-    readr, 
-    rlang, 
     rstan (>= 2.18.1),
-    rstantools (>= 2.0.0),
-    scoringutils, 
-    tidyr, 
-    tidyselect
+    rstantools (>= 2.0.0)
 LinkingTo: 
     BH (>= 1.66.0),
     Rcpp (>= 0.12.0),
