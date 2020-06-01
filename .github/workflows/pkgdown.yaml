@@ -40,11 +40,6 @@ jobs:
         run: |
           pkgbuild::compile_dll()
         shell: Rscript {0}
-        
-      - name: temporary directory
-        run: | 
-          mkdir ~/tmp
-          export TMPDIR=~/tmp
       
       - name: Install package
         run: R CMD INSTALL .
