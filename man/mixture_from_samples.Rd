@@ -59,6 +59,6 @@ mix <- stackr::mixture_from_samples(data, weights = weights)
 }
 \references{
 Using Stacking to Average Bayesian Predictive Distributions, 
-Yuling Yao , Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, 
+Yuling Yao, Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, 
 Bayesian Analysis 13, Number 3, pp. 917–1003
 }
