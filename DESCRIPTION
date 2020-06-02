@@ -1,6 +1,6 @@
 Package: stackr
 Title: Create Mixture Models From Predictive Samples
-Version: 0.0.0.9000
+Version: 1.0.0.0
 Authors@R: 
     c(person(given = "Nikos",
              family = "Bosse",
@@ -26,7 +26,7 @@ Description: The stackr package provides an easy way to stack models based on
     Given some training data with true observed values as well as predictions
     generated from different models, stackr finds the optimal weights to form an 
     ensemble from these models. Using these weights, stackr can then provide
-    samples from the optimal model mixture by drawing from the predictice samples
+    samples from the optimal model mixture by drawing from the predictive samples
     of those models in the correct proportion. This gives a true mixture model
     solely based on predictive samples and is in this regard superior to other 
     ensembling techniques like Bayesian Model Averaging. 
@@ -36,8 +36,6 @@ LazyData: true
 Biarch: true
 Depends: 
     R (>= 3.4.0)
-Remotes:
-    epiforecasts/scoringutils
 Imports: 
     data.table,
     methods,
@@ -52,3 +50,7 @@ LinkingTo:
     StanHeaders (>= 2.18.0)
 SystemRequirements: GNU make
 RoxygenNote: 7.1.0
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
