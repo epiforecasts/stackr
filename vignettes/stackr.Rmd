@@ -139,6 +139,18 @@ To obtain the CRPS weights we finally solve a quadratic optimization:
 \end{align*}
 
 
+# References
+- Using Stacking to Average Bayesian Predictive Distributions, Yuling Yao, Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, Bayesian Analysis 13, Number 3, pp. 917–1003
+- Strictly Proper Scoring Rules, Prediction,and Estimation, 
+Tilmann Gneiting and Adrian E. Raftery, 2007, Journal of the American
+Statistical Association, Volume 102, 2007 - Issue 477
+- Comparing Bayes Model Averaging and Stacking When Model Approximation Error Cannot be Ignored, 
+Bertrand Clarke, 2003, Journal of Machine Learning Research 4
+- Bayesian Model Weighting: The Many Faces of Model Averaging, 
+Marvin Höge, Anneli Guthke and Wolfgang Nowak, 2020, Water, doi:10.3390/w12020309
+- Bayesian Stacking and Pseudo-BMA weights using the loo package, 
+Aki Vehtari and Jonah Gabry, 2019, https://mc-stan.org/loo/articles/loo2-weights.html
+
 
 
 
