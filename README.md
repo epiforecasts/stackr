@@ -72,10 +72,11 @@ score_df[, mean(crps), by = model][, setnames(.SD, "V1", "CRPS")]
 
   - Using Stacking to Average Bayesian Predictive Distributions, Yuling
     Yao, Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, Bayesian
-    Analysis 13, Number 3, pp. 917–1003
+    Analysis 13, Number 3, pp. 917–1003 
   - Strictly Proper Scoring Rules, Prediction,and Estimation, Tilmann
     Gneiting and Adrian E. Raftery, 2007, Journal of the American
     Statistical Association, Volume 102, 2007 - Issue 477
+    <doi:10.1198/016214506000001437>
   - Comparing Bayes Model Averaging and Stacking When Model
     Approximation Error Cannot be Ignored, Bertrand Clarke, 2003,
     Journal of Machine Learning Research 4
