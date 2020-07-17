@@ -1,4 +1,4 @@
-#' @title Make mixture model from predictive samples
+#' @title Create Mixture Model from Predictive Samples
 #'
 #' @description
 #' The function takes a data.frame with predictive samples generated from 
@@ -11,7 +11,7 @@
 #' \itemize{
 #'   \item y_obs, the true observed values (optional)
 #'   \item y_pred, predicted values corresponding to the true values in y_obs
-#'   \item model, the name of the model used to generate the correspondig 
+#'   \item model, the name of the model used to generate the corresponding 
 #'   predictions
 #'   \item geography (optional), the regions for which predictions are 
 #'   generated. If geography is missing, it will be assumed there are no 
@@ -44,7 +44,7 @@
 #' 
 #' weights <- stackr::crps_weights(data)
 #' 
-#' mix <- stackr::mixture_from_samples(data, weights = weights)
+#' mix <- mixture_from_samples(data, weights = weights)
 #' }
 #' 
 #' @importFrom data.table `:=` setDT dcast.data.table setnames
@@ -60,6 +60,9 @@
 mixture_from_samples <- function(data,
                                  weights = NULL) {
   
+  # should weights be a named list? a data.table? 
+  # or just mandate that everything is ordered alphabetically? 
+  
   data.table::setDT(data)
   
   # check if geography exists. if not, create a region
@@ -72,50 +75,47 @@ mixture_from_samples <- function(data,
   
   # get models
   models <- unique(data$model) 
-
-  # number of predictive samples
-  S <- max(data$sample_nr)
+  
+  # make data.table out of weights and merge with data
+  w <- data.table(model = models, 
+                  model_weight = weights)
+  
+  data <- merge(data, w)
   
   # function to draw from the individual models
-  draw <- function(dat, weights, S, models) {
+  draw <- function(data) {
     
-    # get an integer value of how many samples to draw from each model
-    # note: instead of a rounding with preserved sum we might want to add
-    # some randomness in where we round up so that there is no systematic bias
-    num_draws <- round_with_preserved_sum(S * weights)
+    # order by model and sample_nr
+    tmp <- data[order(model, sample_nr)]
     
-    # draw from individual models
-    # note: maybe switch to purrr here
-    mixture_vector <- sapply(seq_along(num_draws), 
-                             FUN = function(i) {
-                               sample(x = dat[, get(..models[i])], 
-                                      size = num_draws[i])
-                             })
-    return(do.call(c, mixture_vector))
+    # calculate number of observations to draw from each model
+    draws <- tmp[, .(S = unique(S), 
+                     model_weight = unique(model_weight)), by = model]
+    
+    draws[, n_draws := stackr:::round_with_preserved_sum(min(S) * model_weight)]
+    draws[, c("S", "model_weight") := NULL]
+    
+    tmp <- merge(tmp, draws)
+    
+    out <- tmp[, .(mixture = sample(y_pred, unique(n_draws, replace = TRUE))), by = model]
+    return(out$mixture)
   }
   
-  # from long to wide format
-  # keep y_obs if it was provided
-  if (("y_obs" %in% names(data))) {
-    dt_wide <- data.table::dcast.data.table(data, 
-                                            geography + date + sample_nr + y_obs ~ model, 
-                                            value.var = "y_pred")
-  } else {
-    dt_wide <- data.table::dcast.data.table(data, 
-                                            geography + date + sample_nr ~ model, 
-                                            value.var = "y_pred")
+  # add column with information about max number of samples available
+  # check number of samples available for all models
+  data[, maxS := max(sample_nr), by = .(model, geography, date)]
+  # if it is not the same, take the minimum across the models
+  data[, minS := min(S), by = .(geography, date)]
+  
+  if (any(data$minS < data$S)) {
+    warning("The number of samples provided for at least one observation differs across models")
+    
   }
   
-  
-  
-  # draw 
-  dt_wide[, CRPS_Mixture := draw(.SD, weights, S, models), 
-          by = .(geography, date)]
-  
-  # clean up formatting
-  out <- dt_wide[, (models) := NULL]
-  out[, model := "CRPS_Mixture"]
-  data.table::setnames(out, "CRPS_Mixture", "y_pred")
+  out <- data[, .(crps_mixture = draw(.SD)), by = .(geography, date)]
+  out[, sample_nr := seq_len(.N), by = c("geography", "date")]
+  out[, model := "crps_mixture"]
+  data.table::setnames(out, "crps_mixture", "y_pred")
   
   # drop region column if there were none in the input data 
   if (no_region) {
@@ -124,4 +124,7 @@ mixture_from_samples <- function(data,
   
   return(out)
 }
+
+
+
 
