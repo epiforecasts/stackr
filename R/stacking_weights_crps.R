@@ -1,4 +1,4 @@
-#' @title Obtain CRPS stacking weights 
+#' @title Obtain CRPS Stacking Weights 
 #'
 #' @description
 #' given true values and predictive samples from different models, 
@@ -9,7 +9,7 @@
 #' \itemize{
 #'   \item y_obs, the true observed values
 #'   \item y_pred, predicted values corresponding to the true values in y_obs
-#'   \item model, the name of the model used to generate the correspondig 
+#'   \item model, the name of the model used to generate the corresponding 
 #'   predictions
 #'   \item geography (optional), the regions for which predictions are 
 #'   generated. If geography is missing, it will be assumed there are no 
@@ -81,6 +81,9 @@ crps_weights <- function(data,
   
   data.table::setDT(data)
   
+  data.table::setorder(data, 
+                       model, sample_nr, geography)
+  
   # check if geography exists. if not, create a region
   if (!("geography" %in% names(data))) {
     data <- data[, geography := "Atlantis"]
@@ -102,7 +105,7 @@ crps_weights <- function(data,
   T <- length(dates)
   
   # turn predictions into array that can be passed to the stan model
-  pred_array <- array(data[order(model, sample_nr, geography)]$y_pred, 
+  pred_array <- array(data$y_pred, 
              dim = c(T, R, S, K))
   
   # turn observations into array that can be passed to the stan model
@@ -114,6 +117,11 @@ crps_weights <- function(data,
     lambda <- 2 - (1 - (1:T / T))^2
   } else if (lambda == "equal") {
     lambda <- rep(1/T, T)
+  }
+  
+  #quick hack to circumvent dimension mismatch error)
+  if (length(lambda) == 1) {
+    lambda <- as.array(lambda)
   }
   
   # assign equal weights to regions if no gamma is provided
@@ -133,5 +141,9 @@ crps_weights <- function(data,
   
   model <- stanmodels$stacking_weights_crps    
   opt <- rstan::optimizing(model, data = standata)
-  return(opt$par)
+  
+  weights <- opt$par
+  names(weights) <- models
+  
+  return(weights)
 }

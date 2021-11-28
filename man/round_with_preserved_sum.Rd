@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{round_with_preserved_sum}
 \alias{round_with_preserved_sum}
-\title{Round vector elements while preserving the Sum}
+\title{Round Vector Elements While Preserving the Sum}
 \usage{
 round_with_preserved_sum(vector, type = "LRM")
 }
@@ -21,7 +21,7 @@ Round the real-valued elements of a vector in a way that the integers
 sum of the rounded elements equals the sum of the original elements.
 }
 \details{
-By default, the function implements the Largest-Remainder mehtod, also known as 
+By default, the function implements the Largest-Remainder method, also known as 
 Hare–Niemeyer method, Hamilton method or as Vinton's method. The procedure 
 works by 1. Rounding everything down, 2. computing the difference between
 the current and the desired sum and 3. adding one to elements in decreasing

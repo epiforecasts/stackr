@@ -44,7 +44,7 @@
 #' 
 #' weights <- stackr::crps_weights(data)
 #' 
-#' mix <- mixture_from_samples(data, weights = weights)
+#' mix <- stackr::mixture_from_samples(data, weights = weights)
 #' }
 #' 
 #' @importFrom data.table `:=` setDT dcast.data.table setnames
@@ -77,8 +77,8 @@ mixture_from_samples <- function(data,
   models <- unique(data$model) 
   
   # make data.table out of weights and merge with data
-  w <- data.table(model = models, 
-                  model_weight = weights)
+  w <- data.table::data.table(model = models, 
+                              model_weight = weights)
   
   data <- merge(data, w)
   
@@ -97,17 +97,17 @@ mixture_from_samples <- function(data,
     
     tmp <- merge(tmp, draws)
     
-    out <- tmp[, .(mixture = sample(y_pred, unique(n_draws, replace = TRUE))), by = model]
+    out <- tmp[, .(mixture = sample(y_pred, unique(n_draws), replace = TRUE)), by = model]
     return(out$mixture)
   }
   
   # add column with information about max number of samples available
   # check number of samples available for all models
-  data[, maxS := max(sample_nr), by = .(model, geography, date)]
+  data[, maxS := max(.N), by = .(model, geography, date)]
   # if it is not the same, take the minimum across the models
-  data[, minS := min(S), by = .(geography, date)]
+  data[, S := min(maxS), by = .(geography, date)]
   
-  if (any(data$minS < data$S)) {
+  if (any(data$maxS < data$S)) {
     warning("The number of samples provided for at least one observation differs across models")
     
   }

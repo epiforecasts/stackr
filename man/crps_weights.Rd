@@ -2,7 +2,7 @@
 % Please edit documentation in R/stacking_weights_crps.R
 \name{crps_weights}
 \alias{crps_weights}
-\title{Obtain CRPS stacking weights}
+\title{Obtain CRPS Stacking Weights}
 \usage{
 crps_weights(data, lambda = NULL, gamma = NULL, dirichlet_alpha = 1.001)
 }
@@ -11,7 +11,7 @@ crps_weights(data, lambda = NULL, gamma = NULL, dirichlet_alpha = 1.001)
 \itemize{
   \item y_obs, the true observed values
   \item y_pred, predicted values corresponding to the true values in y_obs
-  \item model, the name of the model used to generate the correspondig 
+  \item model, the name of the model used to generate the corresponding 
   predictions
   \item geography (optional), the regions for which predictions are 
   generated. If geography is missing, it will be assumed there are no 

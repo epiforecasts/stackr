@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_mixture_from_samples.R
 \name{mixture_from_samples}
 \alias{mixture_from_samples}
-\title{Make mixture model from predictive samples}
+\title{Create Mixture Model from Predictive Samples}
 \usage{
 mixture_from_samples(data, weights = NULL)
 }
@@ -11,7 +11,7 @@ mixture_from_samples(data, weights = NULL)
 \itemize{
   \item y_obs, the true observed values (optional)
   \item y_pred, predicted values corresponding to the true values in y_obs
-  \item model, the name of the model used to generate the correspondig 
+  \item model, the name of the model used to generate the corresponding 
   predictions
   \item geography (optional), the regions for which predictions are 
   generated. If geography is missing, it will be assumed there are no 
