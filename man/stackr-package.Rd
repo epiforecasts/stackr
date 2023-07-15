@@ -6,15 +6,15 @@
 \alias{stackr}
 \title{The 'stackr' package.}
 \description{
-The stackr package provides an easy way to stack models based on 
-the Continuous Ranked Probability Score (CRPS) based on predictive samples. 
+The stackr package provides an easy way to stack models based on
+the Continuous Ranked Probability Score (CRPS) based on predictive samples.
 Given some training data with true observed values as well as predictions
-generated from different models, stackr finds the optimal weights to form an 
+generated from different models, stackr finds the optimal weights to form an
 ensemble from these models. Using these weights, stackr can then provide
 samples from the optimal model mixture by drawing from the predictice samples
 of those models in the correct proportion. This gives a true mixture model
-solely based on predictive samples and is in this regard superior to other 
-ensembling techniques like Bayesian Model Averaging. 
+solely based on predictive samples and is in this regard superior to other
+ensembling techniques like Bayesian Model Averaging.
 
 Currently stacking using CRPS is supported. Weights are generated using
 the \link{crps_weights} function. With these weights and predictive
@@ -22,10 +22,11 @@ samples, \link{mixture_from_samples} can be used to obtain predictive
 samples from the optimal mixture model.
 }
 \references{
-Stan Development Team (2020). RStan: the R interface to Stan. R package version 2.19.3. https://mc-stan.org
+Stan Development Team (2020). RStan: the R interface to Stan. R package
+  version 2.19.3. https://mc-stan.org
 
-Using Stacking to Average Bayesian Predictive Distributions, 
-Yuling Yao , Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, 
+Using Stacking to Average Bayesian Predictive Distributions,
+Yuling Yao , Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018,
 Bayesian Analysis 13, Number 3, pp. 917–1003
 
 Strictly Proper Scoring Rules, Prediction,and Estimation,
