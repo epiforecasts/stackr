@@ -53,7 +53,6 @@ different models.
 splitdate <- as.Date("2020-03-28")
 data <- data.table::setDT(stackr::example_data)
 print(data)
-
 ```
 
 ``` {r}
@@ -75,24 +74,25 @@ print(test_mixture)
 Score predictions using the `scoringutils` package (install from CRAN using 
 `install.packages("scoringutils")`). 
 ``` {r eval=FALSE}
-
 # combine data.frame with mixture with predictions from other models
 score_df <- data.table::rbindlist(list(testdata, test_mixture), fill = TRUE)
 
 
 # CRPS score for all predictions using scoringutils
 score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)),
-        by = .(geography, model, date)]
+  by = .(geography, model, date)
+]
 
 # summarise scores
 score_df[, mean(crps), by = model][, data.table::setnames(.SD, "V1", "CRPS")]
-
 ```
 
 Display other metrics
 ``` {r eval=FALSE}
-data.table::setnames(score_df, c("date", "y_obs", "sample_nr", "y_pred"), 
-                     c("id", "true_values", "sample", "predictions"))
+data.table::setnames(
+  score_df, c("date", "y_obs", "sample_nr", "y_pred"),
+  c("id", "true_values", "sample", "predictions")
+)
 scoringutils::eval_forecasts(score_df[geography == "Tatooine"])
 scoringutils::eval_forecasts(score_df[geography == "Coruscant"])
 ```
