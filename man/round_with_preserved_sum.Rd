@@ -10,20 +10,24 @@ round_with_preserved_sum(vector, type = "LRM")
 \item{vector}{a vector with elements to be rounded to integers}
 
 \item{type}{either 'LRM' or 'random' depending on whether the Largest-
-Remainder method should be employed or whether there should be some 
+Remainder method should be employed or whether there should be some
 randomness}
 }
 \value{
 returns the rounded version of the original input vector
 }
 \description{
-Round the real-valued elements of a vector in a way that the integers 
-sum of the rounded elements equals the sum of the original elements.
+Round the real-valued elements of a vector in a way that the integers sum of
+  the rounded elements equals the (rounded down) sum of the original
+  elements.
 }
 \details{
-By default, the function implements the Largest-Remainder mehtod, also known as 
-Hare–Niemeyer method, Hamilton method or as Vinton's method. The procedure 
-works by 1. Rounding everything down, 2. computing the difference between
-the current and the desired sum and 3. adding one to elements in decreasing
-order of their decimal parts.
+By default, the function implements the Largest-Remainder mehtod, also known
+  as Hare–Niemeyer method, Hamilton method or as Vinton's method. The
+  procedure works by 1. Rounding everything down, 2. computing the difference
+  between the current and the desired sum and 3. adding one to elements in
+  decreasing order of their decimal parts.
+}
+\examples{
+round_with_preserved_sum(c(1.1, 2.2, 3.3, 4.4))
 }
