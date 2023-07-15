@@ -39,11 +39,10 @@
 #' }
 #' @examples
 #' \dontrun{
-#' data <- data.table::setDT(stackr::example_data)
-#'
-#' weights <- stackr::crps_weights(data)
-#'
-#' mix <- stackr::mixture_from_samples(data, weights = weights)
+#' library("data.table")
+#' data <- setDT(example_data)
+#' weights <- c(0.2, 0.3, 0.4, 0.1)
+#' mix <- mixture_from_samples(data, weights = weights)
 #' }
 #'
 #' @importFrom data.table `:=` setDT dcast.data.table setnames
