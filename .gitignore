@@ -5,3 +5,9 @@
 ^src/.*\.dll
 ^src/.*\.o
 inst/doc
+
+# rstantools
+src/*.o
+src/*.cc
+src/stanExports*.h
+*.so
