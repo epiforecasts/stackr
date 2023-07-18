@@ -11,3 +11,10 @@ src/*.o
 src/*.cc
 src/stanExports*.h
 *.so
+
+# macOS
+.DS_Store
+
+# doc
+README.html
+docs/
