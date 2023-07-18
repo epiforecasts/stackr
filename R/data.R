@@ -1,6 +1,7 @@
 #' Example Data 
 #'
-#' A dataset containing predicted $R_t$ values in March an April 2020 on 
+#' A dataset containing true values and predictions of an unknown 
+#' quantity in March an April 2020 on 
 #' the two planets Tatooine and Coruscant. Predictions were generated using
 #' different models. The data on Coruscant is just a simple modulation
 #' of the values observed on Tatooine. 
