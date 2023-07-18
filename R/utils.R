@@ -46,7 +46,6 @@ round_with_preserved_sum <- function(vector, type = "LRM") {
 
 globalVariables(c(
   ".",
-  ".SD",
   "..",
   "..models",
   "CRPS_Mixture",

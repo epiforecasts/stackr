@@ -32,7 +32,7 @@
 #'
 #' @param dirichlet_alpha prior for the weights. Default is 1.001
 #'
-#' @importFrom data.table `:=` setDT
+#' @importFrom data.table `:=` setDT .SD
 #' @importFrom rstan optimizing
 #'
 #' @return returns a vector with the model weights
