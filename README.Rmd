@@ -40,25 +40,26 @@ predictive samples from the optimal mixture model.
 ## Load example data and split into train and test data
 ``` {r eval = FALSE}
 splitdate <- as.Date("2020-03-28")
-data <- data.table::setDT(stackr::example_data)
-traindata <- data[date <= splitdate]
-testdata <- data[date > splitdate]
+traindata <- example_data[date <= splitdate]
+testdata <- example_data[date > splitdate]
 ```
 
 
 ## Get weights and create mixture 
 ``` {r eval = FALSE}
-weights <- stackr::crps_weights(traindata)
-test_mixture <- stackr::mixture_from_samples(testdata, weights = weights)
+weights <- crps_weights(traindata)
+test_mixture <- mixture_from_samples(testdata, weights = weights)
 ```
 
 ## Score predictions
 ``` {r eval = FALSE}
+library("scoringutils")
+
 # combine data.frame with mixture with predictions from other models
-score_df <- data.table::rbindlist(list(testdata, test_mixture), fill = TRUE)
+score_df <- rbindlist(list(testdata, test_mixture), fill = TRUE)
 
 # score all predictions using from github.com/epiforecasts/scoringutils
-score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)),
+score_df[, crps := crps(unique(y_obs), t(y_pred)),
   by = .(geography, model, date)
 ]
 
