@@ -1,0 +1,24 @@
+url: https://epiforecasts.io/stackr
+
+template:
+  params:
+    bootswatch: cerulean
+
+reference:
+  - title: "Generate predictive distributions by optimising skill."
+
+  - subtitle: "Estimate weights"
+    desc: "Functions for estimating weights."
+    contents:
+      - crps_weights
+
+  - subtitle: "Generate new distributions"
+    desc: "Functions for generating new distributions from given weights."
+    contents:
+      - mixture_from_samples
+
+articles:
+  - title: Get started
+    navbar: ~
+    contents:
+      - stackr
