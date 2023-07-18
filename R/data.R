@@ -17,4 +17,5 @@
 #'   \item{y_pred}{the value predicted for a given date and region}
 #'   \item{y_obs}{the true value observed for a given date and region}
 #' }
+#' @keywords internal
 "example_data"

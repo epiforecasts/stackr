@@ -27,4 +27,4 @@ the two planets Tatooine and Coruscant. Predictions were generated using
 different models. The data on Coruscant is just a simple modulation
 of the values observed on Tatooine.
 }
-\keyword{datasets}
+\keyword{internal}

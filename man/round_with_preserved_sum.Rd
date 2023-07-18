@@ -28,3 +28,4 @@ By default, the function implements the Largest-Remainder mehtod, also known
   between the current and the desired sum and 3. adding one to elements in
   decreasing order of their decimal parts.
 }
+\keyword{internal}

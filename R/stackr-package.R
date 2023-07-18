@@ -35,4 +35,5 @@
 #' Tilmann Gneiting and Adrian E. Raftery, 2007, Journal of the American
 #' Statistical Association, Volume 102, 2007 - Issue 477
 #'
+#' @keywords internal
 NULL
