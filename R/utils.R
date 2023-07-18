@@ -1,8 +1,9 @@
 #' @title Round vector elements while preserving the Sum
 #'
 #' @description
-#' Round the real-valued elements of a vector in a way that the integers
-#' sum of the rounded elements equals the sum of the original elements.
+#' Round the real-valued elements of a vector in a way that the integers sum of
+#'   the rounded elements equals the (rounded down) sum of the original
+#'   elements.
 #'
 #' @details
 #' By default, the function implements the Largest-Remainder mehtod, also known
@@ -36,8 +37,10 @@ round_with_preserved_sum <- function(vector, type = "LRM") {
   order <- order(decimals, decreasing = TRUE)
 
   # add one as long as the target sum is not yet reached
-  for (i in 1:remainder) {
-    ints[order[i]] <- ints[order[i]] + 1
+  if (remainder > 0) {
+    for (i in seq_len(remainder)) {
+      ints[order[i]] <- ints[order[i]] + 1
+    }
   }
 
   return(ints)
