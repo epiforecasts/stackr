@@ -18,9 +18,6 @@
 #' randomness
 #'
 #' @return returns the rounded version of the original input vector
-#'
-#' @examples
-#' round_with_preserved_sum(c(1.1, 2.2, 3.3, 4.4))
 round_with_preserved_sum <- function(vector, type = "LRM") {
   # round in case values don't sum up to an integer value
   target_sum <- round(sum(vector))

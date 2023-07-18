@@ -28,6 +28,3 @@ By default, the function implements the Largest-Remainder mehtod, also known
   between the current and the desired sum and 3. adding one to elements in
   decreasing order of their decimal parts.
 }
-\examples{
-round_with_preserved_sum(c(1.1, 2.2, 3.3, 4.4))
-}
