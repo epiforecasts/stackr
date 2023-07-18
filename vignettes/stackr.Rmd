@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup,echo=FALSE}
-library(stackr)
-library(data.table)
+library("stackr")
 ```
 
 
@@ -50,14 +49,14 @@ different models.
 
 ### Load example data and split into train and test data
 ``` {r}
+library("data.table")
 splitdate <- as.Date("2020-03-28")
-data <- data.table::setDT(stackr::example_data)
-print(data)
+print(example_data)
 ```
 
 ``` {r}
-traindata <- data[date <= splitdate]
-testdata <- data[date > splitdate]
+traindata <- example_data[date <= splitdate]
+testdata <- example_data[date > splitdate]
 ```
 
 
