@@ -1,6 +1,18 @@
 stackr package
 ================
 
+<!-- badges: start -->
+
+![GitHub R package
+version](https://img.shields.io/github/r-package/v/epiforecasts/stackr)
+[![R-CMD-check](https://github.com/epiforecasts/stackr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/epiforecasts/stackr/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/github/epiforecasts/stackr/branch/main/graph/badge.svg?token=rYeyG3kFIa)](https://codecov.io/github/epiforecasts/stackr)
+![GitHub
+contributors](https://img.shields.io/github/contributors/epiforecasts/stackr)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
+
 # Overview
 
 The `stackr` package provides an easy way to combine predictions from
