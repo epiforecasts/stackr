@@ -35,7 +35,10 @@ jobs:
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rmarkdown, local::.
+          extra-packages: any::rmarkdown
+
+      - name: Install package
+        run: R CMD INSTALL .
 
       - name: Compile the readme
         run: |
