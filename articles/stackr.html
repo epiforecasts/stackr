@@ -130,18 +130,18 @@ predictive samples in the testing data.</p>
 <code class="sourceCode R"><span><span class="va">weights</span> <span class="op">&lt;-</span> <span class="fu">stackr</span><span class="fu">::</span><span class="fu"><a href="../reference/crps_weights.html">crps_weights</a></span><span class="op">(</span><span class="va">traindata</span><span class="op">)</span></span>
 <span><span class="va">test_mixture</span> <span class="op">&lt;-</span> <span class="fu">stackr</span><span class="fu">::</span><span class="fu"><a href="../reference/mixture_from_samples.html">mixture_from_samples</a></span><span class="op">(</span><span class="va">testdata</span>, weights <span class="op">=</span> <span class="va">weights</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">test_mixture</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        geography       date sample_nr     y_obs     y_pred        model</span></span>
-<span><span class="co">#&gt;     1: Coruscant 2020-03-29         1 1.5002089 1.35058465 CRPS_Mixture</span></span>
-<span><span class="co">#&gt;     2: Coruscant 2020-03-29         2 1.5002089 2.40067700 CRPS_Mixture</span></span>
-<span><span class="co">#&gt;     3: Coruscant 2020-03-29         3 1.5002089 3.46253081 CRPS_Mixture</span></span>
-<span><span class="co">#&gt;     4: Coruscant 2020-03-29         4 1.5002089 1.72230510 CRPS_Mixture</span></span>
-<span><span class="co">#&gt;     5: Coruscant 2020-03-29         5 1.5002089 1.61645516 CRPS_Mixture</span></span>
-<span><span class="co">#&gt;    ---                                                                 </span></span>
-<span><span class="co">#&gt; 10996:  Tatooine 2020-04-08       496 0.7719879 0.27223560 CRPS_Mixture</span></span>
-<span><span class="co">#&gt; 10997:  Tatooine 2020-04-08       497 0.7719879 0.00000000 CRPS_Mixture</span></span>
-<span><span class="co">#&gt; 10998:  Tatooine 2020-04-08       498 0.7719879 0.04171409 CRPS_Mixture</span></span>
-<span><span class="co">#&gt; 10999:  Tatooine 2020-04-08       499 0.7719879 0.45368087 CRPS_Mixture</span></span>
-<span><span class="co">#&gt; 11000:  Tatooine 2020-04-08       500 0.7719879 0.40529511 CRPS_Mixture</span></span></code></pre></div>
+<span><span class="co">#&gt;        geography       date sample_nr     y_obs    y_pred        model</span></span>
+<span><span class="co">#&gt;     1: Coruscant 2020-03-29         1 1.5002089 1.6240687 CRPS_Mixture</span></span>
+<span><span class="co">#&gt;     2: Coruscant 2020-03-29         2 1.5002089 3.0901112 CRPS_Mixture</span></span>
+<span><span class="co">#&gt;     3: Coruscant 2020-03-29         3 1.5002089 1.9486626 CRPS_Mixture</span></span>
+<span><span class="co">#&gt;     4: Coruscant 2020-03-29         4 1.5002089 2.3876041 CRPS_Mixture</span></span>
+<span><span class="co">#&gt;     5: Coruscant 2020-03-29         5 1.5002089 1.2970752 CRPS_Mixture</span></span>
+<span><span class="co">#&gt;    ---                                                                </span></span>
+<span><span class="co">#&gt; 10996:  Tatooine 2020-04-08       496 0.7719879 0.3652143 CRPS_Mixture</span></span>
+<span><span class="co">#&gt; 10997:  Tatooine 2020-04-08       497 0.7719879 0.4735264 CRPS_Mixture</span></span>
+<span><span class="co">#&gt; 10998:  Tatooine 2020-04-08       498 0.7719879 0.1382406 CRPS_Mixture</span></span>
+<span><span class="co">#&gt; 10999:  Tatooine 2020-04-08       499 0.7719879 0.6907741 CRPS_Mixture</span></span>
+<span><span class="co">#&gt; 11000:  Tatooine 2020-04-08       500 0.7719879 0.4536809 CRPS_Mixture</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="score-predictions">Score predictions<a class="anchor" aria-label="anchor" href="#score-predictions"></a>
