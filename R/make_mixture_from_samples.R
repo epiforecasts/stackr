@@ -45,7 +45,7 @@
 #' mix <- mixture_from_samples(data, weights = weights)
 #' }
 #'
-#' @importFrom data.table `:=` setDT dcast.data.table setnames
+#' @importFrom data.table `:=` setDT dcast.data.table setnames .SD
 #' @export
 #'
 #' @references
@@ -124,5 +124,5 @@ mixture_from_samples <- function(data,
     out[, geography := NULL]
   }
 
-  return(out)
+  return(out[])
 }
