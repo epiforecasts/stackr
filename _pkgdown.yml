@@ -1,8 +1,7 @@
 url: https://epiforecasts.io/stackr
 
 template:
-  params:
-    bootswatch: cerulean
+  bootstrap: 5
 
 reference:
   - title: "Generate predictive distributions by optimising skill."
