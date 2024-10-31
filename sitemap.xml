@@ -1,39 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://epiforecasts.io/stackr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/articles/stackr.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/reference/crps_weights.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/reference/example_data.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/reference/mixture_from_samples.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/reference/round_with_preserved_sum.html</loc>
-  </url>
-  <url>
-    <loc>https://epiforecasts.io/stackr/reference/stackr-package.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://epiforecasts.io/stackr/404.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/LICENSE-text.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/articles/index.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/articles/stackr.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/authors.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/index.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/reference/crps_weights.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/reference/example_data.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/reference/index.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/reference/mixture_from_samples.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/reference/round_with_preserved_sum.html</loc></url>
+<url><loc>https://epiforecasts.io/stackr/reference/stackr-package.html</loc></url>
 </urlset>
+
