@@ -33,4 +33,15 @@ Strictly Proper Scoring Rules, Prediction,and Estimation,
 Tilmann Gneiting and Adrian E. Raftery, 2007, Journal of the American
 Statistical Association, Volume 102, 2007 - Issue 477
 }
+\author{
+\strong{Maintainer}: Nikos Bosse \email{nikosbosse@gmail.com} (\href{https://orcid.org/0000-0002-7750-5280}{ORCID})
+
+Authors:
+\itemize{
+  \item Yuling Yao \email{yy2619@columbia.edu}
+  \item Sam Abbott \email{contact@samabbott.co.uk} (\href{https://orcid.org/0000-0001-8057-8037}{ORCID})
+  \item Sebastian Funk \email{sebastian.funk@lshtm.ac.uk} (\href{https://orcid.org/0000-0002-2842-3406}{ORCID})
+}
+
+}
 \keyword{internal}

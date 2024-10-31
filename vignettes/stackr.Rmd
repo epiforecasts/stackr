@@ -78,7 +78,7 @@ score_df <- data.table::rbindlist(list(testdata, test_mixture), fill = TRUE)
 
 
 # CRPS score for all predictions using scoringutils
-score_df[, crps := scoringutils::crps(unique(y_obs), t(y_pred)),
+score_df[, crps := scoringutils::crps(unique(observed), t(predicted)),
   by = .(geography, model, date)
 ]
 
@@ -89,7 +89,7 @@ score_df[, mean(crps), by = model][, data.table::setnames(.SD, "V1", "CRPS")]
 Display other metrics
 ``` {r eval=FALSE}
 data.table::setnames(
-  score_df, c("date", "y_obs", "sample_nr", "y_pred"),
+  score_df, c("date", "observed", "sample_id", "predicted"),
   c("id", "true_values", "sample", "predictions")
 )
 scoringutils::eval_forecasts(score_df[geography == "Tatooine"])

@@ -67,14 +67,13 @@ library("scoringutils")
 score_df <- rbindlist(list(testdata, test_mixture), fill = TRUE)
 
 # score all predictions using from github.com/epiforecasts/scoringutils
-score_df[, crps := crps(unique(y_obs), t(y_pred)),
+score_df[, crps := crps(unique(observed), t(predicted)),
   by = .(geography, model, date)
 ]
 
 # summarise scores
 score_df[, mean(crps), by = model][, setnames(.SD, "V1", "CRPS")]
 ```
-
 
 # References
 - Using Stacking to Average Bayesian Predictive Distributions, Yuling Yao, Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, Bayesian Analysis 13, Number 3, pp. 917–1003 DOI 10.1214/17-BA1091

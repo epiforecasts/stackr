@@ -7,8 +7,9 @@
 #'
 #' @param data a data.frame with the following entries:
 #' \itemize{
-#'   \item y_obs, the true observed values
-#'   \item y_pred, predicted values corresponding to the true values in y_obs
+#'   \item observed, the true observed values
+#'   \item predicted, predicted values corresponding to the true values in
+#'   observed
 #'   \item model, the name of the model used to generate the correspondig
 #'   predictions
 #'   \item geography (optional), the regions for which predictions are
@@ -81,20 +82,26 @@ crps_weights <- function(data,
   r <- length(regions)
 
   # number of predictive samples
-  s <- max(data$sample_nr)
+  s <- max(data$sample_id)
 
   # get number of timepoints
   dates <- unique(data$date)
   t <- length(dates)
 
   # turn predictions into array that can be passed to the stan model
-  pred_array <- array(data[order(model, sample_nr, geography)]$y_pred,
+  pred_array <- array(data[order(model, sample_id, geography)]$predicted,
     dim = c(t, r, s, k)
   )
 
   # turn observations into array that can be passed to the stan model
   y <-
-    data[sample_nr == 1 & model == models[1]][order(date, geography)][, y_obs]
+    data[
+      sample_id == 1 & model == models[1]
+    ][
+      order(date, geography)
+    ][,
+      observed
+    ]
   y_array <- array(y, dim = c(r, t))
 
   # assign increasing or equal weights if no lambda vector is provided
@@ -123,5 +130,7 @@ crps_weights <- function(data,
 
   model <- stanmodels$stacking_weights_crps
   opt <- rstan::optimizing(model, data = standata)
-  return(opt$par)
+  weights <- opt$par
+  names(weights) <- models
+  return(weights)
 }
