@@ -20,8 +20,9 @@
 #' @name stackr-package
 #' @aliases stackr
 #' @useDynLib stackr, .registration = TRUE
-#' @import methods
-#' @import rstantools
+#' @import Rcpp
+#' @importFrom rstan sampling
+#' @importFrom RcppParallel RcppParallelLibs
 #'
 #' @references
 #' Stan Development Team (2020). RStan: the R interface to Stan. R package
@@ -36,4 +37,4 @@
 #' Statistical Association, Volume 102, 2007 - Issue 477
 #'
 #' @keywords internal
-NULL
+"_PACKAGE"

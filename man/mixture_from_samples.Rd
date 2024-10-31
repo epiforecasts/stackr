@@ -10,7 +10,8 @@ mixture_from_samples(data, weights = NULL, ...)
 \item{data}{a data.frame with the following entries:
 \itemize{
   \item observed, the true observed values (optional)
-  \item predicted, predicted values corresponding to the true values in observed
+  \item predicted, predicted values corresponding to the true values in
+  observed
   \item model, the name of the model used to generate the correspondig
   predictions
   \item geography (optional), the regions for which predictions are
@@ -33,7 +34,8 @@ data.frame with samples from the mixture model. The following
 columns are returned:
 \itemize{
   \item observed, the true observed values, if they were given as input
-  \item predicted, predicted values corresponding to the true values in observed
+  \item predicted, predicted values corresponding to the true values in
+  observed
   \item model, the name of the model used to generate the correspondig
   predictions
   \item geography (optional), the regions for which predictions are
