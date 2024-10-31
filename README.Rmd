@@ -75,7 +75,6 @@ score_df[, crps := crps(unique(observed), t(predicted)),
 score_df[, mean(crps), by = model][, setnames(.SD, "V1", "CRPS")]
 ```
 
-
 # References
 - Using Stacking to Average Bayesian Predictive Distributions, Yuling Yao, Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018, Bayesian Analysis 13, Number 3, pp. 917–1003 DOI 10.1214/17-BA1091
 - Strictly Proper Scoring Rules, Prediction, and Estimation, 
