@@ -21,7 +21,9 @@
 #' @aliases stackr
 #' @useDynLib stackr, .registration = TRUE
 #' @import Rcpp
+#' @import methods
 #' @importFrom rstan sampling
+#' @importFrom rstantools rstan_config
 #' @importFrom RcppParallel RcppParallelLibs
 #'
 #' @references
