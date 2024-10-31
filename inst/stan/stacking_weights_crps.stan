@@ -13,8 +13,8 @@ data {
   int<lower = 1> S; // number of predictive samples for every true value
   int<lower = 1> R; // number of regions
   
-  matrix[S, K] predict_sample_mat[T, R]; 
-  vector[T] y[R];
+  array[T, R] matrix[S, K] predict_sample_mat; 
+  array[R] vector[T] y;
   
   vector[T] lambda; // weight different time points differently
   vector[R] gamma; // maybe weight different regions differently
@@ -23,8 +23,8 @@ data {
 
 transformed data {
   
-  vector[K] mean_bias[T,R]; // pre-calculate array of all mean_bias values
-  matrix[K, K] entropy[T, R]; // pre-calculate array of all entropy matrices
+  array[T, R] vector[K] mean_bias; // pre-calculate array of all mean_bias values
+  array[T, R] matrix[K, K] entropy; // pre-calculate array of all entropy matrices
   
   // mean bias calculation
   for (r in 1:R) {
@@ -35,7 +35,7 @@ transformed data {
         // all abs(predictive_sample_s - y)
         mean_bias[t, r, k] = 0;
         for (s in 1:S) {
-          mean_bias[t, r, k] += fabs(predict_sample_mat[t, r, s, k]- y[r, t])/S ;
+          mean_bias[t, r, k] += abs(predict_sample_mat[t, r, s, k]- y[r, t])/S ;
         }
       }
     }
@@ -50,7 +50,7 @@ transformed data {
       for( k1 in 1:K){
 	    	for(k2 in 1:k1)
 		    	for(s1 in 1:S)
-		    			entropy[t, r, k1, k2] += 1.0/S^2 * sum(fabs( predict_sample_mat[t, r, s1, k1] - predict_sample_mat[t, r, 1:S, k2]));
+		    			entropy[t, r, k1, k2] += 1.0/S^2 * sum(abs( predict_sample_mat[t, r, s1, k1] - predict_sample_mat[t, r, 1:S, k2]));
 	    	// maybe use 1.0/S(S-1)
 	    }
 	    for( k1 in 1:(K-1) ){ 
