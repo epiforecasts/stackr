@@ -4,13 +4,13 @@
 \alias{mixture_from_samples}
 \title{Make mixture model from predictive samples}
 \usage{
-mixture_from_samples(data, weights = NULL)
+mixture_from_samples(data, weights = NULL, ...)
 }
 \arguments{
 \item{data}{a data.frame with the following entries:
 \itemize{
-  \item y_obs, the true observed values (optional)
-  \item y_pred, predicted values corresponding to the true values in y_obs
+  \item observed, the true observed values (optional)
+  \item predicted, predicted values corresponding to the true values in observed
   \item model, the name of the model used to generate the correspondig
   predictions
   \item geography (optional), the regions for which predictions are
@@ -22,14 +22,18 @@ mixture_from_samples(data, weights = NULL)
 }}
 
 \item{weights}{stacking weights used to combine the original model to a
-mixture model}
+mixture model. If NULL (default), weights will first be estimated using
+[crps_weights()].}
+
+\item{...}{any additional parameters to pass to [crps_weights()] if `weights`
+is NULL.}
 }
 \value{
 data.frame with samples from the mixture model. The following
 columns are returned:
 \itemize{
-  \item y_obs, the true observed values, if they were given as input
-  \item y_pred, predicted values corresponding to the true values in y_obs
+  \item observed, the true observed values, if they were given as input
+  \item predicted, predicted values corresponding to the true values in observed
   \item model, the name of the model used to generate the correspondig
   predictions
   \item geography (optional), the regions for which predictions are

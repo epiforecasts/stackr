@@ -67,7 +67,7 @@ library("scoringutils")
 score_df <- rbindlist(list(testdata, test_mixture), fill = TRUE)
 
 # score all predictions using from github.com/epiforecasts/scoringutils
-score_df[, crps := crps(unique(y_obs), t(y_pred)),
+score_df[, crps := crps(unique(observed), t(predicted)),
   by = .(geography, model, date)
 ]
 

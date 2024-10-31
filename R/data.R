@@ -10,12 +10,12 @@
 #' \describe{
 #'   \item{geography}{the location where values where observed and predicted}
 #'   \item{model}{the model used to generate predictions}
-#'   \item{sample_nr}{the sample number that identifies a predictive sample
+#'   \item{sample_id}{the sample number that identifies a predictive sample
 #'   for a specific geography and date}
 #'   \item{date}{the date for which the prediction was made and the true
 #'   value was observed}
-#'   \item{y_pred}{the value predicted for a given date and region}
-#'   \item{y_obs}{the true value observed for a given date and region}
+#'   \item{predicted}{the value predicted for a given date and region}
+#'   \item{observed}{the true value observed for a given date and region}
 #' }
 #' @keywords internal
 "example_data"

@@ -9,8 +9,8 @@
 #'
 #' @param data a data.frame with the following entries:
 #' \itemize{
-#'   \item y_obs, the true observed values (optional)
-#'   \item y_pred, predicted values corresponding to the true values in y_obs
+#'   \item observed, the true observed values (optional)
+#'   \item predicted, predicted values corresponding to the true values in observed
 #'   \item model, the name of the model used to generate the correspondig
 #'   predictions
 #'   \item geography (optional), the regions for which predictions are
@@ -21,13 +21,17 @@
 #'   works with numbers to indicate timesteps
 #' }
 #' @param weights stacking weights used to combine the original model to a
-#' mixture model
+#' mixture model. If NULL (default), weights will first be estimated using
+#' [crps_weights()].
+#'
+#' @param ... any additional parameters to pass to [crps_weights()] if `weights`
+#' is NULL.
 #'
 #' @return data.frame with samples from the mixture model. The following
 #' columns are returned:
 #' \itemize{
-#'   \item y_obs, the true observed values, if they were given as input
-#'   \item y_pred, predicted values corresponding to the true values in y_obs
+#'   \item observed, the true observed values, if they were given as input
+#'   \item predicted, predicted values corresponding to the true values in observed
 #'   \item model, the name of the model used to generate the correspondig
 #'   predictions
 #'   \item geography (optional), the regions for which predictions are
@@ -56,7 +60,8 @@
 #'
 
 mixture_from_samples <- function(data,
-                                 weights = NULL) {
+                                 weights = NULL,
+                                 ...) {
   data.table::setDT(data)
 
   # check if geography exists. if not, create a region
@@ -67,11 +72,15 @@ mixture_from_samples <- function(data,
     no_region <- FALSE
   }
 
+  if (is.null(weights)) {
+    weights <- crps_weights(data, ...)
+  }
+
   # get models
   models <- unique(data$model)
 
   # number of predictive samples
-  s <- max(data$sample_nr)
+  s <- max(data$sample_id)
 
   # function to draw from the individual models
   draw <- function(dat, weights, s, models) {
@@ -94,35 +103,31 @@ mixture_from_samples <- function(data,
   }
 
   # from long to wide format
-  # keep y_obs if it was provided
-  if (("y_obs" %in% names(data))) {
-    dt_wide <- data.table::dcast.data.table(data,
-      geography + date + sample_nr + y_obs ~ model,
-      value.var = "y_pred"
-    )
-  } else {
-    dt_wide <- data.table::dcast.data.table(data,
-      geography + date + sample_nr ~ model,
-      value.var = "y_pred"
-    )
-  }
-
-
+  # keep observed if it was provided
+  cols <- setdiff(colnames(data), c("predicted", "model"))
+  dt_wide <- data.table::dcast.data.table(
+    data,
+    as.formula(paste0(paste(cols, collapse = " + "), " ~ model")),
+    value.var = "predicted"
+  )
 
   # draw
   dt_wide[, CRPS_Mixture := draw(.SD, weights, s, models),
-    by = .(geography, date)
+    by = setdiff(cols, c("observed", "sample_id"))
   ]
 
   # clean up formatting
   out <- dt_wide[, (models) := NULL]
   out[, model := "CRPS_Mixture"]
-  data.table::setnames(out, "CRPS_Mixture", "y_pred")
+  data.table::setnames(out, "CRPS_Mixture", "predicted")
 
   # drop region column if there were none in the input data
   if (no_region) {
     out[, geography := NULL]
   }
+
+  weights <- data.frame(model = models, weight = unname(weights))
+  attr(out, "weights") <- weights
 
   return(out[])
 }

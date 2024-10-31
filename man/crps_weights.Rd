@@ -9,8 +9,8 @@ crps_weights(data, lambda = NULL, gamma = NULL, dirichlet_alpha = 1.001)
 \arguments{
 \item{data}{a data.frame with the following entries:
 \itemize{
-  \item y_obs, the true observed values
-  \item y_pred, predicted values corresponding to the true values in y_obs
+  \item observed, the true observed values
+  \item predicted, predicted values corresponding to the true values in observed
   \item model, the name of the model used to generate the correspondig
   predictions
   \item geography (optional), the regions for which predictions are

@@ -52,6 +52,6 @@ globalVariables(c(
   "CRPS_Mixture",
   "geography",
   "model",
-  "sample_nr",
-  "y_obs"
+  "sample_id",
+  "observed"
 ))
