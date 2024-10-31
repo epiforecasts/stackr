@@ -8,7 +8,8 @@
 #' @param data a data.frame with the following entries:
 #' \itemize{
 #'   \item observed, the true observed values
-#'   \item predicted, predicted values corresponding to the true values in observed
+#'   \item predicted, predicted values corresponding to the true values in
+#'   observed
 #'   \item model, the name of the model used to generate the correspondig
 #'   predictions
 #'   \item geography (optional), the regions for which predictions are
@@ -94,7 +95,13 @@ crps_weights <- function(data,
 
   # turn observations into array that can be passed to the stan model
   y <-
-    data[sample_id == 1 & model == models[1]][order(date, geography)][, observed]
+    data[
+      sample_id == 1 & model == models[1]
+    ][
+      order(date, geography)
+    ][,
+      observed
+    ]
   y_array <- array(y, dim = c(r, t))
 
   # assign increasing or equal weights if no lambda vector is provided
