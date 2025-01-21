@@ -110,7 +110,7 @@ score_df[, mean(crps), by = model][, setnames(.SD, "V1", "CRPS")]
 
 All contributions to this project are gratefully acknowledged using the
 [`allcontributors` package](https://github.com/ropensci/allcontributors)
-following the [all-contributors](https://allcontributors.org)
+following the [allcontributors](https://allcontributors.org)
 specification. Contributions of any kind are welcome!
 
 ### Code
@@ -119,7 +119,11 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/epiforecasts/stackr/commits?author=sbfnk">sbfnk</a>,
 <a href="https://github.com/epiforecasts/stackr/commits?author=seabbs">seabbs</a>
 
-### Issues
+### Issue Authors
+
+<a href="https://github.com/epiforecasts/stackr/issues?q=is%3Aissue+author%3Anickreich">nickreich</a>
+
+### Issue Contributors
 
 <a href="https://github.com/epiforecasts/stackr/issues?q=is%3Aissue+commenter%3Ajonathonmellor">jonathonmellor</a>
 
