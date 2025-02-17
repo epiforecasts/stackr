@@ -76,9 +76,12 @@
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
-<p>Install using</p>
+<p>The stable version of the package can be installed using</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"epiforecasts/stackr"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"stackr"</span>, repos <span class="op">=</span> <span class="st">"https://epiforecasts.r-universe.dev/"</span><span class="op">)</span></span></code></pre></div>
+<p>The development version can be installed using <code>pak</code></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"epiforecasts/stackr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="crps-stacking">CRPS Stacking<a class="anchor" aria-label="anchor" href="#crps-stacking"></a>
@@ -92,7 +95,7 @@
 <div class="section level2">
 <h2 id="load-example-data-and-split-into-train-and-test-data">Load example data and split into train and test data<a class="anchor" aria-label="anchor" href="#load-example-data-and-split-into-train-and-test-data"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">splitdate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-03-28"</span><span class="op">)</span></span>
 <span><span class="va">traindata</span> <span class="op">&lt;-</span> <span class="va">example_data</span><span class="op">[</span><span class="va">date</span> <span class="op">&lt;=</span> <span class="va">splitdate</span><span class="op">]</span></span>
 <span><span class="va">testdata</span> <span class="op">&lt;-</span> <span class="va">example_data</span><span class="op">[</span><span class="va">date</span> <span class="op">&gt;</span> <span class="va">splitdate</span><span class="op">]</span></span></code></pre></div>
@@ -100,14 +103,14 @@
 <div class="section level2">
 <h2 id="get-weights-and-create-mixture">Get weights and create mixture<a class="anchor" aria-label="anchor" href="#get-weights-and-create-mixture"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/crps_weights.html">crps_weights</a></span><span class="op">(</span><span class="va">traindata</span><span class="op">)</span></span>
 <span><span class="va">test_mixture</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mixture_from_samples.html">mixture_from_samples</a></span><span class="op">(</span><span class="va">testdata</span>, weights <span class="op">=</span> <span class="va">weights</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="score-predictions">Score predictions<a class="anchor" aria-label="anchor" href="#score-predictions"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://doi.org/10.48550/arXiv.2205.07090" class="external-link">"scoringutils"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># combine data.frame with mixture with predictions from other models</span></span>
