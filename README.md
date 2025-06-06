@@ -114,9 +114,7 @@ score_df[, mean(crps), by = model][, setnames(.SD, "V1", "CRPS")]
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
 <!-- prettier-ignore-start -->
-
 <!-- markdownlint-disable -->
 
 All contributions to this project are gratefully acknowledged using the
@@ -126,20 +124,18 @@ specification. Contributions of any kind are welcome!
 
 ### Code
 
-<a href="https://github.com/epiforecasts/lopensemble/commits?author=nikosbosse">nikosbosse</a>,
-<a href="https://github.com/epiforecasts/lopensemble/commits?author=sbfnk">sbfnk</a>,
-<a href="https://github.com/epiforecasts/lopensemble/commits?author=seabbs">seabbs</a>
+<a href="https://github.com/epiforecasts/stackr/commits?author=nikosbosse">nikosbosse</a>,
+<a href="https://github.com/epiforecasts/stackr/commits?author=sbfnk">sbfnk</a>,
+<a href="https://github.com/epiforecasts/stackr/commits?author=seabbs">seabbs</a>
 
 ### Issue Authors
 
-<a href="https://github.com/epiforecasts/lopensemble/issues?q=is%3Aissue+author%3Anickreich">nickreich</a>
+<a href="https://github.com/epiforecasts/stackr/issues?q=is%3Aissue+author%3Anickreich">nickreich</a>
 
 ### Issue Contributors
 
-<a href="https://github.com/epiforecasts/lopensemble/issues?q=is%3Aissue+commenter%3Ajonathonmellor">jonathonmellor</a>
+<a href="https://github.com/epiforecasts/stackr/issues?q=is%3Aissue+commenter%3Ajonathonmellor">jonathonmellor</a>
 
 <!-- markdownlint-enable -->
-
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
