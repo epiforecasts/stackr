@@ -1,16 +1,16 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://epiforecasts.io/stackr/404.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/LICENSE-text.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/articles/index.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/articles/stackr.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/authors.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/index.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/news/index.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/reference/crps_weights.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/reference/example_data.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/reference/index.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/reference/mixture_from_samples.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/reference/round_with_preserved_sum.html</loc></url>
-<url><loc>https://epiforecasts.io/stackr/reference/stackr-package.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/404.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/LICENSE-text.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/articles/index.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/articles/lopensemble.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/authors.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/index.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/news/index.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/reference/crps_weights.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/reference/example_data.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/reference/index.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/reference/lopensemble-package.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/reference/mixture_from_samples.html</loc></url>
+<url><loc>https://epiforecasts.io/lopensemble/reference/round_with_preserved_sum.html</loc></url>
 </urlset>
 

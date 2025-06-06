@@ -2,8 +2,8 @@ pandoc: 3.1.11
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
-  stackr: stackr.html
-last_built: 2025-06-06T17:28Z
+  lopensemble: lopensemble.html
+last_built: 2025-06-06T18:54Z
 urls:
-  reference: https://epiforecasts.io/stackr/reference
-  article: https://epiforecasts.io/stackr/articles
+  reference: https://epiforecasts.io/lopensemble/reference
+  article: https://epiforecasts.io/lopensemble/articles
