@@ -1,6 +1,6 @@
-# stackr (development version)
+# lopensemble (development version)
 
-# stackr 0.1.0
+# lopensemble 0.1.0
 
 Initial package release.
 

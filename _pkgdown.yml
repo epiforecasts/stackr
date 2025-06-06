@@ -1,4 +1,4 @@
-url: https://epiforecasts.io/stackr
+url: https://epiforecasts.io/lopensemble
 
 template:
   params:
@@ -21,4 +21,4 @@ articles:
   - title: Get started
     navbar: ~
     contents:
-      - stackr
+      - lopensemble
