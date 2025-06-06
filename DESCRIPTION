@@ -1,4 +1,4 @@
-Package: stackr
+Package: lopensemble
 Title: Create Mixture Models From Predictive Samples
 Version: 0.1.0.9000
 Authors@R: 
@@ -22,9 +22,9 @@ Authors@R:
              email = "sebastian.funk@lshtm.ac.uk",
              comment = c(ORCID = "0000-0002-2842-3406")))
 Description: 
-      The `stackr` package provides an easy way to combine predictions
+      The `lopensemble` package provides an easy way to combine predictions
       from individual time series or panel data models to an 
-      ensemble. `stackr` stacks (Yuling Yao, Aki Vehtari, Daniel Simpson, 
+      ensemble. `lopensemble` stacks (Yuling Yao, Aki Vehtari, Daniel Simpson,
       and Andrew Gelman (2018) <doi:10.1214/17-BA1091>)
       Models according to the Continuous Ranked 
       Probability Score (CRPS) (Tilmann Gneiting & Adrian E Raftery (2007) 

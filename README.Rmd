@@ -1,20 +1,20 @@
 ---
-title: "stackr package"
+title: "lopensemble package"
 output: github_document
 ---
 
 <!-- badges: start -->
-![GitHub R package version](https://img.shields.io/github/r-package/v/epiforecasts/stackr)
-[![R-CMD-check](https://github.com/epiforecasts/stackr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/epiforecasts/stackr/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/github/epiforecasts/stackr/branch/main/graph/badge.svg?token=rYeyG3kFIa)](https://codecov.io/github/epiforecasts/stackr)
-![GitHub contributors](https://img.shields.io/github/contributors/epiforecasts/stackr)
+![GitHub R package version](https://img.shields.io/github/r-package/v/epiforecasts/lopensemble)
+[![R-CMD-check](https://github.com/epiforecasts/lopensemble/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/epiforecasts/lopensemble/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/github/epiforecasts/lopensemble/branch/main/graph/badge.svg?token=rYeyG3kFIa)](https://codecov.io/github/epiforecasts/lopensemble)
+![GitHub contributors](https://img.shields.io/github/contributors/epiforecasts/lopensemble)
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 # Overview
-The `stackr` package provides an easy way to combine predictions
+The `lopensemble` package provides an easy way to combine predictions
 from individual time series or panel data models to an 
-ensemble. `stackr` stacks models according to the Continuous Ranked Probability 
+ensemble. `lopensemble` stacks models according to the Continuous Ranked Probability 
 Score (CRPS) over k-step ahead predictions. It is therefore especially
 suited for time-series and panel data. A function for 
 leave-one-out CRPS may be added in the future. Predictions need to be 
@@ -27,19 +27,19 @@ algorithm.
 
 The stable version of the package can be installed using
 ```{r eval=FALSE}
-install.packages("stackr", repos = "https://epiforecasts.r-universe.dev/")
+install.packages("lopensemble", repos = "https://epiforecasts.r-universe.dev/")
 ```
 
 The development version can be installed using `pak`
 ```{r eval=FALSE}
-pak::pak("epiforecasts/stackr")
+pak::pak("epiforecasts/lopensemble")
 ```
 
 # CRPS Stacking 
 Given some training data with true observed values as well as predictive samples
-generated from different models, `stackr` finds the optimal (in the sense of 
+generated from different models, `lopensemble` finds the optimal (in the sense of 
 minimizing expected cross-validation predictive error) weights to form an
-ensemble of these models. Using these weights, `stackr` can then provide
+ensemble of these models. Using these weights, `lopensemble` can then provide
 samples from the optimal model mixture by drawing from the predictive samples
 of those models in the correct proportion. This gives a mixture model
 solely based on predictive samples and is in this regard superior to other
@@ -108,23 +108,23 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 ### Code
 
 
-<a href="https://github.com/epiforecasts/stackr/commits?author=nikosbosse">nikosbosse</a>, 
-<a href="https://github.com/epiforecasts/stackr/commits?author=sbfnk">sbfnk</a>, 
-<a href="https://github.com/epiforecasts/stackr/commits?author=seabbs">seabbs</a>
+<a href="https://github.com/epiforecasts/lopensemble/commits?author=nikosbosse">nikosbosse</a>, 
+<a href="https://github.com/epiforecasts/lopensemble/commits?author=sbfnk">sbfnk</a>, 
+<a href="https://github.com/epiforecasts/lopensemble/commits?author=seabbs">seabbs</a>
 
 
 
 ### Issue Authors
 
 
-<a href="https://github.com/epiforecasts/stackr/issues?q=is%3Aissue+author%3Anickreich">nickreich</a>
+<a href="https://github.com/epiforecasts/lopensemble/issues?q=is%3Aissue+author%3Anickreich">nickreich</a>
 
 
 
 ### Issue Contributors
 
 
-<a href="https://github.com/epiforecasts/stackr/issues?q=is%3Aissue+commenter%3Ajonathonmellor">jonathonmellor</a>
+<a href="https://github.com/epiforecasts/lopensemble/issues?q=is%3Aissue+commenter%3Ajonathonmellor">jonathonmellor</a>
 
 
 <!-- markdownlint-enable -->
