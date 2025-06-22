@@ -89,8 +89,8 @@ crps_weights <- function(data,
   t <- length(dates)
 
   # turn predictions into array that can be passed to the stan model
-  pred_array <- array(data[order(model, sample_id, geography)]$predicted,
-    dim = c(t, r, s, k)
+  ordered_data <- data[order(model, sample_id, geography)]
+  pred_array <- array(ordered_data$predicted, dim = c(t, r, s, k)
   )
 
   # turn observations into array that can be passed to the stan model
@@ -131,6 +131,8 @@ crps_weights <- function(data,
   model <- stanmodels$stacking_weights_crps
   opt <- rstan::optimizing(model, data = standata)
   weights <- opt$par
-  names(weights) <- models
-  return(weights)
+  ordered_models <- unique(ordered_data$model)
+  names(weights) <- ordered_models
+  ## return in original order
+  return(weights[models])
 }
