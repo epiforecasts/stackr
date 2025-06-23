@@ -33,6 +33,12 @@ jobs:
           cat('\noptions(lintr.linter_file = ".lintr")\n', file = "~/.Rprofile", append = TRUE)
         shell: Rscript {0}
 
+      - name: Install cmdstan
+        uses: epinowcast/actions/install-cmdstan@v1
+        with:
+          cmdstan-version: 'latest'
+          num-cores: 2
+
       - name: Install package
         run: R CMD INSTALL .
 

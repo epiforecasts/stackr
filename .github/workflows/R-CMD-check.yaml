@@ -49,6 +49,12 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - name: Install cmdstan
+        uses: epinowcast/actions/install-cmdstan@v1
+        with:
+          cmdstan-version: 'latest'
+          num-cores: 2
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
