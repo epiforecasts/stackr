@@ -4,6 +4,54 @@
 \name{lopensemble-package}
 \alias{lopensemble-package}
 \alias{lopensemble}
+\alias{Using}
+\alias{Stacking}
+\alias{to}
+\alias{Average}
+\alias{Bayesian}
+\alias{Predictive}
+\alias{Distributions,}
+\alias{Yuling}
+\alias{Yao}
+\alias{,}
+\alias{Aki}
+\alias{Vehtari,}
+\alias{Daniel}
+\alias{Simpson,}
+\alias{and}
+\alias{Andrew}
+\alias{Gelman,}
+\alias{2018,}
+\alias{Analysis}
+\alias{13,}
+\alias{Number}
+\alias{3,}
+\alias{pp.}
+\alias{917–1003}
+\alias{Strictly}
+\alias{Proper}
+\alias{Scoring}
+\alias{Rules,}
+\alias{Prediction,and}
+\alias{Estimation,}
+\alias{Tilmann}
+\alias{Gneiting}
+\alias{Adrian}
+\alias{E.}
+\alias{Raftery,}
+\alias{2007,}
+\alias{Journal}
+\alias{of}
+\alias{the}
+\alias{American}
+\alias{Statistical}
+\alias{Association,}
+\alias{Volume}
+\alias{102,}
+\alias{2007}
+\alias{-}
+\alias{Issue}
+\alias{477}
 \title{The 'lopensemble' package.}
 \description{
 The lopensemble package provides an easy way to stack models based on
@@ -20,18 +68,6 @@ Currently stacking using CRPS is supported. Weights are generated using
 the \link{crps_weights} function. With these weights and predictive
 samples, \link{mixture_from_samples} can be used to obtain predictive
 samples from the optimal mixture model.
-}
-\references{
-Stan Development Team (2020). RStan: the R interface to Stan. R package
-  version 2.19.3. https://mc-stan.org
-
-Using Stacking to Average Bayesian Predictive Distributions,
-Yuling Yao , Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018,
-Bayesian Analysis 13, Number 3, pp. 917–1003
-
-Strictly Proper Scoring Rules, Prediction,and Estimation,
-Tilmann Gneiting and Adrian E. Raftery, 2007, Journal of the American
-Statistical Association, Volume 102, 2007 - Issue 477
 }
 \author{
 \strong{Maintainer}: Nikos Bosse \email{nikosbosse@gmail.com} (\href{https://orcid.org/0000-0002-7750-5280}{ORCID})

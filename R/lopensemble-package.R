@@ -19,16 +19,6 @@
 #' @docType package
 #' @name lopensemble-package
 #' @aliases lopensemble
-#' @useDynLib lopensemble, .registration = TRUE
-#' @import Rcpp
-#' @import methods
-#' @importFrom rstan sampling
-#' @importFrom rstantools rstan_config
-#' @importFrom RcppParallel RcppParallelLibs
-#'
-#' @references
-#' Stan Development Team (2020). RStan: the R interface to Stan. R package
-#'   version 2.19.3. https://mc-stan.org
 #'
 #' Using Stacking to Average Bayesian Predictive Distributions,
 #' Yuling Yao , Aki Vehtari, Daniel Simpson, and Andrew Gelman, 2018,

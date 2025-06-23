@@ -34,7 +34,6 @@
 #' @param dirichlet_alpha prior for the weights. Default is 1.001
 #'
 #' @importFrom data.table `:=` setDT .SD
-#' @importFrom rstan optimizing
 #'
 #' @return returns a vector with the model weights
 #'
@@ -90,8 +89,7 @@ crps_weights <- function(data,
 
   # turn predictions into array that can be passed to the stan model
   ordered_data <- data[order(model, sample_id, geography)]
-  pred_array <- array(ordered_data$predicted, dim = c(t, r, s, k)
-  )
+  pred_array <- array(ordered_data$predicted, dim = c(t, r, s, k))
 
   # turn observations into array that can be passed to the stan model
   y <-
@@ -128,9 +126,11 @@ crps_weights <- function(data,
     dirichlet_alpha = dirichlet_alpha
   )
 
-  model <- stanmodels$stacking_weights_crps
-  opt <- rstan::optimizing(model, data = standata)
-  weights <- opt$par
+  model <- cmdstan_model(
+    system.file("stan", "stacking_weights_crps.stan", package = "lopensemble")
+  )
+  opt <- model$optimize(data = standata)
+  weights <- c(opt$draws())[-1]
   ordered_models <- unique(ordered_data$model)
   names(weights) <- ordered_models
   ## return in original order
