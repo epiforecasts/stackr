@@ -130,7 +130,7 @@ crps_weights <- function(data,
   model <- cmdstan_model(
     system.file("stan", "stacking_weights_crps.stan", package = "lopensemble")
   )
-  opt <- model$optimize(data = standata)
+  opt <- model$optimize(data = standata, show_messages = FALSE)
   weights <- c(opt$draws())[-1]
   ordered_models <- unique(ordered_data$model)
   names(weights) <- ordered_models
