@@ -2,6 +2,7 @@
 
 export(crps_weights)
 export(mixture_from_samples)
+importFrom(cmdstanr,cmdstan_model)
 importFrom(data.table,.SD)
 importFrom(data.table,`:=`)
 importFrom(data.table,dcast.data.table)

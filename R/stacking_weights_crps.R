@@ -34,6 +34,7 @@
 #' @param dirichlet_alpha prior for the weights. Default is 1.001
 #'
 #' @importFrom data.table `:=` setDT .SD
+#' @importFrom cmdstanr cmdstan_model
 #'
 #' @return returns a vector with the model weights
 #'
