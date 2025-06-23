@@ -35,6 +35,12 @@ jobs:
         run: allcontributors::add_contributors(format = "text")
         shell: Rscript {0}
 
+      - name: Install cmdstan
+        uses: epinowcast/actions/install-cmdstan@v1
+        with:
+          cmdstan-version: 'latest'
+          num-cores: 2
+
       - name: Compile the readme
         run: |
           rmarkdown::render("README.Rmd")
